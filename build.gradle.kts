@@ -31,6 +31,12 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
+    implementation(kotlin("stdlib-jdk8"))
+
+	//mariadb
+	implementation("org.mariadb.jdbc:mariadb-java-client:3.1.4")
+	runtimeOnly ("org.mariadb.jdbc:mariadb-java-client")
+
 }
 
 tasks.withType<KotlinCompile> {
@@ -42,4 +48,7 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+kotlin {
+    jvmToolchain(17)
 }
