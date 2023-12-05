@@ -1,2 +1,23 @@
 jwt:
-  secret-ket: 11
+  secret-ket: 17
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://${db-url}?characterEncoding=UTF-8&serverTimezone=KST
+    username: ${db-username}
+    password: ${db-password}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+logging:
+  charset:
+    console: UTF-8
+  level:
+    org.hibernate.sql: debug
+    org.hibernate.type: trace
