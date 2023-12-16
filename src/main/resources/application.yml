@@ -4,9 +4,9 @@ jwt:
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://${db-url}?characterEncoding=UTF-8&serverTimezone=KST
-    username: ${db-username}
-    password: ${db-password}
+    url: jdbc:mariadb://${ZZEKAK_API_DB_URL}?characterEncoding=UTF-8&serverTimezone=KST
+    username: ${ZZEKAK_API_DB_USER_NAME}
+    password: ${ZZEKAK_API_DB_PASSWORD}
   jpa:
     show-sql: true
     hibernate:

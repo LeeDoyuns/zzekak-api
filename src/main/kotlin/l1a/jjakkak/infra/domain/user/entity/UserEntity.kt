@@ -7,9 +7,10 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
-import l1a.jjakkak.infra.domain.auth.entity.SocialAuthenticationEntity
-import l1a.jjakkak.infra.domain.auth.entity.SocialAuthenticationEntity.Companion.COLUMN_SOCIAL_AUTHENTICATION_ID
+import l1a.jjakkak.infra.domain.auth.entity.AuthenticationEntity
 import l1a.jjakkak.infra.domain.user.entity.UserEntity.Companion.TABLE_USER
+import org.hibernate.annotations.CreationTimestamp
+import org.hibernate.annotations.UpdateTimestamp
 import java.time.Instant
 import java.util.UUID
 
@@ -20,15 +21,22 @@ class UserEntity(
     val userId: UUID,
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = COLUMN_SOCIAL_AUTHENTICATION_ID)
-    val socialAuthenticationEntity: SocialAuthenticationEntity,
+    @JoinColumn(name = AuthenticationEntity.COLUMN_AUTHENTICATION_ID)
+    val authenticationEntity: AuthenticationEntity,
 
     @Column(name = CREATED_AT)
-    val createdAt: Instant
+    @CreationTimestamp
+    val createdAt: Instant? = null,
+
+    @Column(name = COLUMN_UPDATED_AT)
+    @UpdateTimestamp
+    val updatedAt: Instant? = null
 ) {
     companion object {
         const val TABLE_USER = "user"
         const val COLUMN_USER_ID = "userId"
         const val CREATED_AT = "created_at"
+        const val COLUMN_UPDATED_AT = "updated_at"
+
     }
 }
