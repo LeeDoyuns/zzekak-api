@@ -8,18 +8,20 @@ import l1a.jjakkak.api.config.security.SecurityConfig.Companion.AUTHENTICATION_B
 import org.springframework.security.authentication.InsufficientAuthenticationException
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.util.AntPathMatcher
 import org.springframework.web.client.HttpClientErrorException.BadRequest
 import org.springframework.web.filter.OncePerRequestFilter
 import java.time.Instant
 
 internal class JWTAuthenticationFilter(private val jwtTokenProvider: JwtTokenProvider) : OncePerRequestFilter() {
+    private val antPathMatcher = AntPathMatcher()
 
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        if (AUTHENTICATION_BY_PASS_LIST.any { request.requestURI.contains(it) }) {
+        if (shouldBypassAuthentication(request)) {
             filterChain.doFilter(request, response)
             return
         }
@@ -41,6 +43,12 @@ internal class JWTAuthenticationFilter(private val jwtTokenProvider: JwtTokenPro
         }
 
         filterChain.doFilter(request, response)
+    }
+
+    private fun shouldBypassAuthentication(request: HttpServletRequest): Boolean {
+        return AUTHENTICATION_BY_PASS_LIST.any { pattern ->
+            antPathMatcher.match(pattern, request.requestURI)
+        }
     }
 
     companion object {
