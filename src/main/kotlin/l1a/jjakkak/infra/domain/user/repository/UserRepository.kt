@@ -1,5 +1,6 @@
 package l1a.jjakkak.infra.domain.user.repository
 
+import l1a.jjakkak.core.domain.auth.AuthenticationId
 import l1a.jjakkak.core.domain.user.UserCommand
 import l1a.jjakkak.core.domain.user.UserQuery
 import l1a.jjakkak.core.domain.user.repository.UserRepository
@@ -11,8 +12,12 @@ import org.springframework.transaction.annotation.Transactional
 
 @Repository
 internal class UserRepositoryImpl(
-   val userEntityDao: UserEntityDao
-): UserRepository, UserSerialize, UserDeserialize {
+    val userEntityDao: UserEntityDao
+) : UserRepository, UserSerialize, UserDeserialize {
     @Transactional
     override fun save(user: UserCommand): UserQuery = userEntityDao.save(user.toEntity()).toDomain()
+
+    @Transactional
+    override fun findUserByAuthenticationId(authenticationId: AuthenticationId): UserQuery? =
+        userEntityDao.findUserByAuthenticationId(authenticationId)?.toDomain()
 }

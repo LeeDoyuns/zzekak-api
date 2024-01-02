@@ -8,7 +8,7 @@ import l1a.jjakkak.infra.domain.auth.entity.AuthenticationEntity
 interface AuthenticationSerialize {
     fun AuthenticationCommand.toEntity() =
         AuthenticationEntity(
-            authenticationId = id,
+            authenticationId = id.value,
             type = type,
         )
 }

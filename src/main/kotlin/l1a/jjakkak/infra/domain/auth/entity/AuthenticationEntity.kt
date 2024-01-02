@@ -27,7 +27,7 @@ import java.time.Instant
 @EntityListeners(AuditingEntityListener::class)
 class AuthenticationEntity(
     @Id @Column(name = COLUMN_AUTHENTICATION_ID)
-    val authenticationId: AuthenticationId,
+    val authenticationId: String,
 
     @Column(name = COLUMN_TYPE)
     @Convert(converter = AuthenticationTypeConverter::class)
