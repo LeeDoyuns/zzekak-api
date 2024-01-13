@@ -1,7 +1,7 @@
 package l1a.jjakkak.api.domain.user.dto
 
 import com.fasterxml.jackson.annotation.JsonValue
-import l1a.jjakkak.core.domain.auth.AuthenticationType
+import l1a.jjakkak.core.domain.user.AuthenticationType
 
 
 enum class AuthenticationTypeDto(@JsonValue val code: String) {

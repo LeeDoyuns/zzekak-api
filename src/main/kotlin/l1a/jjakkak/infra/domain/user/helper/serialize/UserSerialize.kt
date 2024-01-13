@@ -1,7 +1,6 @@
 package l1a.jjakkak.infra.domain.user.helper.serialize
 
 import l1a.jjakkak.core.domain.user.UserCommand
-import l1a.jjakkak.infra.domain.auth.helper.serialize.AuthenticationSerialize
 import l1a.jjakkak.infra.domain.user.entity.UserEntity
 
 

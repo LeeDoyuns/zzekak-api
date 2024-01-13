@@ -2,10 +2,10 @@ package l1a.jjakkak.core.domain.user.usecase
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import l1a.jjakkak.core.domain.auth.AuthToken
-import l1a.jjakkak.core.domain.auth.AuthenticationCommand
-import l1a.jjakkak.core.domain.auth.AuthenticationId
-import l1a.jjakkak.core.domain.auth.AuthenticationType
+import l1a.jjakkak.core.domain.user.AuthToken
+import l1a.jjakkak.core.domain.user.AuthenticationCommand
+import l1a.jjakkak.core.domain.user.AuthenticationId
+import l1a.jjakkak.core.domain.user.AuthenticationType
 import l1a.jjakkak.core.domain.user.Token
 import l1a.jjakkak.core.domain.user.UserCommand
 import l1a.jjakkak.core.domain.user.UserId

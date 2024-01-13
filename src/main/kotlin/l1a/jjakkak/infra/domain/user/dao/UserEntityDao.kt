@@ -1,6 +1,6 @@
 package l1a.jjakkak.infra.domain.user.dao
 
-import l1a.jjakkak.core.domain.auth.AuthenticationId
+import l1a.jjakkak.core.domain.user.AuthenticationId
 import l1a.jjakkak.infra.domain.user.entity.UserEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository

@@ -1,7 +1,5 @@
 package l1a.jjakkak.core.domain.user
 
-import l1a.jjakkak.core.domain.auth.AuthenticationCommand
-import l1a.jjakkak.core.domain.auth.AuthenticationQuery
 import l1a.jjakkak.core.domain.common.IdTypeUUID
 import java.time.Instant
 import java.util.UUID

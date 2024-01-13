@@ -1,6 +1,6 @@
 package l1a.jjakkak.core.domain.user.repository
 
-import l1a.jjakkak.core.domain.auth.AuthenticationId
+import l1a.jjakkak.core.domain.user.AuthenticationId
 import l1a.jjakkak.core.domain.user.UserCommand
 import l1a.jjakkak.core.domain.user.UserQuery
 

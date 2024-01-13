@@ -1,4 +1,4 @@
-package l1a.jjakkak.core.domain.auth
+package l1a.jjakkak.core.domain.user
 
 import com.auth0.jwt.exceptions.TokenExpiredException
 import java.time.Instant

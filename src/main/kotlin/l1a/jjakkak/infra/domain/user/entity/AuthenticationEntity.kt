@@ -1,4 +1,4 @@
-package l1a.jjakkak.infra.domain.auth.entity
+package l1a.jjakkak.infra.domain.user.entity
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
@@ -9,15 +9,10 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
-import l1a.jjakkak.core.domain.auth.AuthenticationId
-import l1a.jjakkak.core.domain.auth.AuthenticationType
-import l1a.jjakkak.infra.domain.auth.converter.AuthenticationTypeConverter
-import l1a.jjakkak.infra.domain.auth.entity.AuthenticationEntity.Companion.TABLE_AUTHENTICATION
-import l1a.jjakkak.infra.domain.user.entity.UserEntity
-import org.hibernate.annotations.CreationTimestamp
-import org.hibernate.annotations.UpdateTimestamp
+import l1a.jjakkak.core.domain.user.AuthenticationType
+import l1a.jjakkak.infra.domain.user.converter.AuthenticationTypeConverter
+import l1a.jjakkak.infra.domain.user.entity.AuthenticationEntity.Companion.TABLE_AUTHENTICATION
 import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.Instant

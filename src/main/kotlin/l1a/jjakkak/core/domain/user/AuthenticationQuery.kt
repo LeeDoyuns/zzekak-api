@@ -1,4 +1,4 @@
-package l1a.jjakkak.core.domain.auth
+package l1a.jjakkak.core.domain.user
 
 import l1a.jjakkak.core.domain.common.IdTypeString
 import java.time.Instant

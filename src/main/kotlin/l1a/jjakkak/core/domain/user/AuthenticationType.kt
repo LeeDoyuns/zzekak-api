@@ -1,9 +1,7 @@
-package l1a.jjakkak.core.domain.auth
+package l1a.jjakkak.core.domain.user
 
-import com.auth0.jwt.exceptions.TokenExpiredException
 import com.fasterxml.jackson.module.kotlin.readValue
 import l1a.jjakkak.core.util.ObjectMapper
-import java.time.Instant
 import java.util.*
 
 enum class AuthenticationType(val code: String) {

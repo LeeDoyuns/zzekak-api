@@ -1,9 +1,8 @@
-package l1a.jjakkak.infra.domain.auth.dao
+package l1a.jjakkak.infra.domain.user.dao
 
-import l1a.jjakkak.infra.domain.auth.entity.AuthenticationEntity
+import l1a.jjakkak.infra.domain.user.entity.AuthenticationEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
-import java.util.*
 
 interface SocialAuthenticationDao {
     fun save(authenticationEntity: AuthenticationEntity): AuthenticationEntity
