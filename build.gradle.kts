@@ -29,6 +29,9 @@ dependencies {
     // jwt
     implementation("com.auth0:java-jwt:4.3.0")
 
+    // 개발 문서 dependency
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
     implementation(kotlin("stdlib-jdk8"))

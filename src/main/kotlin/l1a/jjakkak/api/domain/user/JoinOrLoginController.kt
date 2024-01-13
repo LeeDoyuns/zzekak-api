@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
     consumes = [MediaType.APPLICATION_JSON_VALUE]
 )
 interface JoinOrLoginController {
-    @PostMapping(ApiUrl.USER_CREATE)
+    @PostMapping(ApiUrl.USER_JOIN_OR_LOGIN)
     fun joinOrLogin(@RequestBody request: JoinOrLoginRequest): TokenResponse
 }
 

@@ -19,8 +19,16 @@ logging:
     root: INFO # 모든 로그에 대해 DEBUG 레벨을 설정
     org.hibernate.sql: trace
     org.hibernate.type: trace
+    org.springdoc: DEBUG
 
 lia:
   auth:
     public-key-path: ${ZZEKAK_PUBLIC_KEY_PATH}
     private-key-path: ${ZZEKAK_PRIVATE_KEY_PATH}
+
+springdoc:
+  api-docs:
+    path: /docs
+  swagger-ui:
+    path: /docs/index.html
+

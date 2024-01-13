@@ -3,14 +3,11 @@ package l1a.jjakkak.api.config.security
 import l1a.jjakkak.api.ApiUrl
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.security.config.Customizer
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken
 
 @Configuration
 @EnableWebSecurity
@@ -50,8 +47,8 @@ internal class SecurityConfig {
     companion object {
         val AUTHENTICATION_BY_PASS_LIST =
             listOf(
-                ApiUrl.USER_CREATE,
-                ApiUrl.USER_LOGIN
+                ApiUrl.USER_JOIN_OR_LOGIN,
+                "${ApiUrl.DOCS}/**"
             ).toTypedArray()
     }
 }
