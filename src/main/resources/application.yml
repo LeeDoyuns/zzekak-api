@@ -31,4 +31,5 @@ springdoc:
     path: /docs
   swagger-ui:
     path: /docs/index.html
-
+server:
+  port: ${ZZEKAK_PORT}
