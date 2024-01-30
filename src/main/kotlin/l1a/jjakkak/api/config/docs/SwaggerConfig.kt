@@ -31,7 +31,7 @@ class SwaggerConfig {
             .pathsToMatch("${ApiUrl.APPOINTMENT}/**")
             .addOpenApiCustomizer(openApiCustomizer())
             .build()
-
+   
     @Bean
     fun customOpenAPI(): OpenAPI =
         OpenAPI()
