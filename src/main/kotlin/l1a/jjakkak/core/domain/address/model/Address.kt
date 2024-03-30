@@ -3,47 +3,6 @@ package l1a.jjakkak.core.domain.address.model
 import l1a.jjakkak.core.domain.common.IdTypeUUID
 import java.util.*
 
-@JvmInline
-value class AddressId(override val value: UUID) : IdTypeUUID
-
-interface IdentifierAddress : Address {
-    val id: AddressId
-
-    companion object {
-        fun create(
-            id: AddressId,
-            cityOrProvince: String,
-            districtOrCity: String,
-            postalCode: String,
-            jibunAddress: String,
-            roadAddress: String
-        ): IdentifierAddress =
-            IdentifierAddressImpl(
-                id = id,
-                cityOrProvince = cityOrProvince,
-                districtOrCity = districtOrCity,
-                postalCode = postalCode,
-                jibunAddress = jibunAddress,
-                roadAddress = roadAddress
-            )
-
-        fun create(
-            id: AddressId,
-            address: Address
-        ): IdentifierAddress =
-            with(address) {
-                create(
-                    id = id,
-                    cityOrProvince = cityOrProvince,
-                    districtOrCity = districtOrCity,
-                    postalCode = postalCode,
-                    jibunAddress = jibunAddress,
-                    roadAddress = roadAddress
-                )
-            }
-    }
-}
-
 interface Address {
     /** 시, 도 */
     val cityOrProvince: String
@@ -85,12 +44,3 @@ internal data class AddressImpl(
     override val jibunAddress: String,
     override val roadAddress: String
 ) : Address
-
-internal data class IdentifierAddressImpl(
-    override val id: AddressId,
-    override val cityOrProvince: String,
-    override val districtOrCity: String,
-    override val postalCode: String,
-    override val jibunAddress: String,
-    override val roadAddress: String
-) : IdentifierAddress

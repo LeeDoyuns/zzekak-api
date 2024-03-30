@@ -1,13 +1,13 @@
 package l1a.jjakkak.infra.domain.appointment.repository
 
-import l1a.jjakkak.core.domain.address.model.AddressId
-import l1a.jjakkak.core.domain.address.model.IdentifierAddress
+import l1a.jjakkak.core.domain.address.model.AppointmentAddressId
+import l1a.jjakkak.core.domain.address.model.AppointmentAddress
 import l1a.jjakkak.core.domain.appointment.model.AppointmentCommand
 import l1a.jjakkak.core.domain.appointment.model.AppointmentId
 import l1a.jjakkak.core.domain.appointment.model.AppointmentQuery
 import l1a.jjakkak.core.domain.appointment.repository.AppointmentRepository
 import l1a.jjakkak.core.domain.user.UserId
-import l1a.jjakkak.infra.domain.address.entity.AddressEntity
+import l1a.jjakkak.infra.domain.address.entity.AppointmentAddressEntity
 import l1a.jjakkak.infra.domain.appointment.dao.AppointmentEntityDao
 import l1a.jjakkak.infra.domain.appointment.entity.AppointmentEntity
 import l1a.jjakkak.infra.domain.user.dao.UserEntityDao
@@ -31,14 +31,8 @@ internal class AppointmentRepositoryImpl(
             appointmentCommand.toEntity(
                 existed = existed,
                 participants = existedUsers
-            ).also {
-                val a = it
-                println(a)
-            }
-        ).also {
-            val a = it
-            println(a)
-        }
+            )
+        )
 
         return saved.toDomain()
     }
@@ -50,20 +44,22 @@ internal class AppointmentRepositoryImpl(
         appointmentId = id.value,
         ownerId = ownerId.value,
         name = name,
-        address = address.toEntity(existed?.address),
+        appointmentAddress = address.toEntity(existed?.appointmentAddress),
         appointmentTime = appointmentTime,
         participants = participants.toSet(),
         deleted = false
     )
 
-    private fun IdentifierAddress.toEntity(existed: AddressEntity?) =
-        AddressEntity(
+    private fun AppointmentAddress.toEntity(existed: AppointmentAddressEntity?) =
+        AppointmentAddressEntity(
             id = existed?.id ?: id.value,
-            cityOrProvince = cityOrProvince,
-            districtOrCity = districtOrCity,
-            postalCode = postalCode,
-            jibunAddress = jibunAddress,
-            roadAddress = roadAddress,
+            cityOrProvince = address.cityOrProvince,
+            districtOrCity = address.districtOrCity,
+            postalCode = address.postalCode,
+            jibunAddress = address.jibunAddress,
+            roadAddress = address.roadAddress,
+            x = coordinate.x,
+            y = coordinate.y
         )
 
     private fun AppointmentEntity.toDomain() =
@@ -71,7 +67,7 @@ internal class AppointmentRepositoryImpl(
             id = AppointmentId(appointmentId),
             ownerId = UserId(ownerId),
             name = name,
-            address = address.toDomain(),
+            address = appointmentAddress.toDomain(),
             appointmentTime = appointmentTime,
             participants = participants.map { it.userId },
             createdAt = createdAt,
@@ -79,13 +75,15 @@ internal class AppointmentRepositoryImpl(
             deleted = deleted
         )
 
-    private fun AddressEntity.toDomain() =
-        IdentifierAddress.create(
-            id = AddressId(id),
+    private fun AppointmentAddressEntity.toDomain() =
+        AppointmentAddress.create(
+            id = AppointmentAddressId(id),
             cityOrProvince = cityOrProvince,
             districtOrCity = districtOrCity,
             postalCode = postalCode,
             jibunAddress = jibunAddress,
-            roadAddress = roadAddress
+            roadAddress = roadAddress,
+            x = x,
+            y = y
         )
 }

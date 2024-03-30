@@ -3,8 +3,9 @@ package l1a.jjakkak.api.domain.appointment
 import l1a.jjakkak.api.ApiUrl
 import l1a.jjakkak.api.domain.appointment.response.CreateAppointmentResponse
 import l1a.jjakkak.core.domain.address.model.Address
-import l1a.jjakkak.core.domain.address.model.AddressId
-import l1a.jjakkak.core.domain.address.model.IdentifierAddress
+import l1a.jjakkak.core.domain.address.model.AppointmentAddressId
+import l1a.jjakkak.core.domain.address.model.AppointmentAddress
+import l1a.jjakkak.core.domain.address.model.Coordinate
 import l1a.jjakkak.core.domain.appointment.model.AppointmentCommand
 import l1a.jjakkak.core.domain.appointment.model.AppointmentId
 import l1a.jjakkak.core.domain.appointment.usecase.CreateAppointmentUseCase
@@ -38,24 +39,27 @@ internal class CreateAppointmentControllerImpl(
         request: CreateAppointmentRequest
     ): CreateAppointmentResponse =
         createAppointmentUseCase.createAppointment(
-            appointment = AppointmentCommand.create(
-                id = AppointmentId(UUID.randomUUID()),
-                ownerId = UserId(id),
-                name = request.name,
-                address =
-                IdentifierAddress.create(
-                    id = AddressId(UUID.randomUUID()),
-                    address = Address.create(
-                        cityOrProvince = request.address.cityOrProvince,
-                        districtOrCity = request.address.districtOrCity,
-                        postalCode = request.address.postalCode,
-                        jibunAddress = request.address.jibunAddress,
-                        roadAddress = request.address.roadAddress
-                    )
-                ),
-                appointmentTime = request.appointmentTime.toInstant(),
-                participants = request.participants.map { UserId(it) },
-                deleted = false
-            )
+            appointment =
+            with(request) {
+                AppointmentCommand.create(
+                    id = AppointmentId(UUID.randomUUID()),
+                    ownerId = UserId(id),
+                    name = request.name,
+                    address =
+                    AppointmentAddress.create(
+                        id = AppointmentAddressId(UUID.randomUUID()),
+                        cityOrProvince = address.cityOrProvince,
+                        districtOrCity = address.districtOrCity,
+                        postalCode = address.postalCode,
+                        jibunAddress = address.jibunAddress,
+                        roadAddress = address.roadAddress,
+                        x = address.x,
+                        y = address.y
+                    ),
+                    appointmentTime = appointmentTime.toInstant(),
+                    participants = participants.map { UserId(it) },
+                    deleted = false
+                )
+            }
         ).run { CreateAppointmentResponse.from(this) }
 }

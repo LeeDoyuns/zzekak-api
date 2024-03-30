@@ -12,5 +12,7 @@ internal data class AddressRequest(
     @JsonProperty("jibunAddress")
     val jibunAddress: String,
     @JsonProperty("roadAddress")
-    val roadAddress: String
+    val roadAddress: String,
+    val x: String,
+    val y: String
 )

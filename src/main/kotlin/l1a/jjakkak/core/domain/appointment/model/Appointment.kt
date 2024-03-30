@@ -1,6 +1,6 @@
 package l1a.jjakkak.core.domain.appointment.model
 
-import l1a.jjakkak.core.domain.address.model.IdentifierAddress
+import l1a.jjakkak.core.domain.address.model.AppointmentAddress
 import l1a.jjakkak.core.domain.common.IdTypeUUID
 import l1a.jjakkak.core.domain.user.UserId
 import java.time.Instant
@@ -13,7 +13,7 @@ interface AppointmentCommand {
     val id: AppointmentId
     val ownerId: UserId
     val name: String
-    val address: IdentifierAddress
+    val address: AppointmentAddress
     val appointmentTime: Instant
     val participants: List<UserId>
     val deleted: Boolean
@@ -23,7 +23,7 @@ interface AppointmentCommand {
             id: AppointmentId,
             ownerId: UserId,
             name: String,
-            address: IdentifierAddress,
+            address: AppointmentAddress,
             appointmentTime: Instant,
             participants: Collection<UserId>,
             deleted: Boolean
@@ -44,7 +44,7 @@ data class AppointmentCommandImpl(
     override val id: AppointmentId,
     override val ownerId: UserId,
     override val name: String,
-    override val address: IdentifierAddress,
+    override val address: AppointmentAddress,
     override val appointmentTime: Instant,
     override val participants: List<UserId>,
     override val deleted: Boolean
@@ -54,7 +54,7 @@ interface AppointmentQuery : AppointmentCommand {
     override val id: AppointmentId
     override val ownerId: UserId
     override val name: String
-    override val address: IdentifierAddress
+    override val address: AppointmentAddress
     override val appointmentTime: Instant
     override val participants: List<UserId>
     val createdAt: Instant
@@ -65,7 +65,7 @@ interface AppointmentQuery : AppointmentCommand {
             id: AppointmentId,
             ownerId: UserId,
             name: String,
-            address: IdentifierAddress,
+            address: AppointmentAddress,
             appointmentTime: Instant,
             participants: List<UserId>,
             createdAt: Instant,
@@ -90,7 +90,7 @@ data class AppointmentQueryImpl(
     override val id: AppointmentId,
     override val ownerId: UserId,
     override val name: String,
-    override val address: IdentifierAddress,
+    override val address: AppointmentAddress,
     override val appointmentTime: Instant,
     override val createdAt: Instant,
     override val updatedAt: Instant,

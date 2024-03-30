@@ -1,12 +1,12 @@
 package l1a.jjakkak.api.domain.common.response
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import l1a.jjakkak.core.domain.address.model.AddressId
-import l1a.jjakkak.core.domain.address.model.IdentifierAddress
+import l1a.jjakkak.core.domain.address.model.AppointmentAddressId
+import l1a.jjakkak.core.domain.address.model.AppointmentAddress
 
 data class AddressResponse(
     @JsonProperty("id")
-    val id: AddressId,
+    val id: AppointmentAddressId,
     @JsonProperty("cityOrProvince")
     val cityOrProvince: String,
     @JsonProperty("districtOrCity")
@@ -16,18 +16,24 @@ data class AddressResponse(
     @JsonProperty("jibunAddress")
     val jibunAddress: String,
     @JsonProperty("roadAddress")
-    val roadAddress: String
+    val roadAddress: String,
+    @JsonProperty("x")
+    val x: String,
+    @JsonProperty("y")
+    val y: String
 ) {
     companion object {
-        fun from(src: IdentifierAddress) =
+        fun from(src: AppointmentAddress) =
             with(src) {
                 AddressResponse(
                     id = id,
-                    cityOrProvince = cityOrProvince,
-                    districtOrCity = districtOrCity,
-                    postalCode = postalCode,
-                    jibunAddress = jibunAddress,
-                    roadAddress = roadAddress
+                    cityOrProvince = address.cityOrProvince,
+                    districtOrCity = address.districtOrCity,
+                    postalCode = address.postalCode,
+                    jibunAddress = address.jibunAddress,
+                    roadAddress = address.roadAddress,
+                    x = coordinate.x,
+                    y = coordinate.y
                 )
             }
     }

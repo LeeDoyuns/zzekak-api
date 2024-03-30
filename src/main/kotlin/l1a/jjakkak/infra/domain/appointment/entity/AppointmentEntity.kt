@@ -5,15 +5,13 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EntityListeners
 import jakarta.persistence.FetchType
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.JoinTable
 import jakarta.persistence.ManyToMany
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
-import l1a.jjakkak.infra.domain.address.entity.AddressEntity
+import l1a.jjakkak.infra.domain.address.entity.AppointmentAddressEntity
 import l1a.jjakkak.infra.domain.appointment.entity.AppointmentEntity.Companion.TABLE_APPOINTMENT
 import l1a.jjakkak.infra.domain.user.entity.AuthenticationEntity
 import l1a.jjakkak.infra.domain.user.entity.UserEntity
@@ -36,9 +34,9 @@ class AppointmentEntity(
     @Column(name = COLUMN_NAME)
     val name: String,
 
-    @JoinColumn(name = COLUMN_ADDRESS_ID)
+    @JoinColumn(name = COLUMN_APPOINTMENT_ADDRESS_ID)
     @OneToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], orphanRemoval = true)
-    val address: AddressEntity,
+    val appointmentAddress: AppointmentAddressEntity,
 
     @Column(name = COLUMN_APPOINTMENT_TIME)
     val appointmentTime: Instant,
@@ -67,7 +65,7 @@ class AppointmentEntity(
         const val COLUMN_APPOINTMENT_ID = "appointment_id"
         const val COLUMN_OWNER_ID = "owner_id"
         const val COLUMN_NAME = "name"
-        const val COLUMN_ADDRESS_ID = "address_id"
+        const val COLUMN_APPOINTMENT_ADDRESS_ID = "appointment_address_id"
         const val COLUMN_APPOINTMENT_TIME = "appointment_time"
         const val COLUMN_DELETED = "deleted"
     }
