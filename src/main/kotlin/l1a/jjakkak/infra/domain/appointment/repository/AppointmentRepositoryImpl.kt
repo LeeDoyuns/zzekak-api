@@ -37,6 +37,9 @@ internal class AppointmentRepositoryImpl(
         return saved.toDomain()
     }
 
+    override fun findAllByUserId(userId: UserId): List<AppointmentQuery> =
+        dao.findByUserId(userId).map { it.toDomain() }
+
     private fun AppointmentCommand.toEntity(
         existed: AppointmentEntity?,
         participants: Collection<UserEntity>
