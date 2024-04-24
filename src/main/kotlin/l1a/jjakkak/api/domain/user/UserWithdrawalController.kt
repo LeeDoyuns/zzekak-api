@@ -31,7 +31,7 @@ internal class UserWithdrawalControllerImpl (
 ): UserWithdrawalController  {
 
     override fun userWithdrawal(h: HttpHeaders): WithdrawalResponse {
-        var token = h.get("Authorization").toString().replace("Bearer ", "")
+        var token = h["Authorization"].toString().replace("Bearer ", "")
         return  useCase.withdrawal(UserWithdrawalRequest(token).toMessage()).run { WithdrawalResponse.from(this) }
     }
 }
