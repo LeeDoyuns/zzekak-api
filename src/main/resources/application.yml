@@ -31,6 +31,11 @@ lia:
   api-key:
     addr: ${ZZEKAK_ADDR_KEY}
     coord: ${ZZEKAK_COORD_KEY}
+  aligo:
+    user-id: ${ALIGO_USER_ID}
+    key: ${ALIGO_KEY}
+    msg-type: SMS
+    testmode-yn: ${SMS_TEST_YN} #Y/N으로 입력되어야 함.
 
 springdoc:
   api-docs:
