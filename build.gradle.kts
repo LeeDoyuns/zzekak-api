@@ -1,8 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     id("org.springframework.boot") version "3.1.5"
     id("io.spring.dependency-management") version "1.1.3"
+    id("org.jlleitschuh.gradle.ktlint").version("12.1.0")
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.spring") version "1.9.21"
     kotlin("plugin.jpa") version "1.9.21"
@@ -37,18 +39,22 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
     implementation(kotlin("stdlib-jdk8"))
 
-    //json serializer
+    // json serializer
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webflux
     implementation("org.springframework.boot:spring-boot-starter-webflux")
 
-    implementation ("com.google.code.gson:gson:2.8.8")
+    implementation("com.google.code.gson:gson:2.8.8")
 
-
-    //mariadb
+    // mariadb
     implementation("org.mariadb.jdbc:mariadb-java-client:3.1.4")
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
+}
 
+ktlint {
+    reporters {
+        reporter(ReporterType.JSON)
+    }
 }
 
 tasks.withType<KotlinCompile> {
