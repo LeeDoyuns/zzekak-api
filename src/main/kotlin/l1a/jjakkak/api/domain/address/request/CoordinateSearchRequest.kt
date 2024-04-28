@@ -21,6 +21,6 @@ internal data class CoordinateSearchRequest(
             roadNameCode = roadNameCode,
             undergroundIndicator = undergroundIndicator,
             buildingMainNumber = buildingMainNumber,
-            buildingSubNumber = buildingSubNumber
+            buildingSubNumber = buildingSubNumber,
         )
 }

@@ -5,13 +5,13 @@ import l1a.jjakkak.core.domain.address.model.Address
 import l1a.jjakkak.core.domain.address.model.Coordinate
 import l1a.jjakkak.core.domain.address.model.SearchedAddress
 import l1a.jjakkak.core.domain.address.repository.AddressRepository
-import l1a.jjakkak.infra.domain.address.model.AddressObject
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Repository
 
 @Repository
 class AddressRepositoryImpl(
-    @Value("\${lia.api-key.addr}")  //주소검색 apikey
+    // 주소검색 apikey
+    @Value("\${lia.api-key.addr}")
     val aConfmKey: String,
     @Value("\${lia.api-key.coord}")
     val cConfmKey: String

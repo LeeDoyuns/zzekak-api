@@ -4,7 +4,7 @@ object ApiUrl {
     // Docs
     const val DOCS = "/docs"
 
-    //HealthCheck
+    // HealthCheck
     const val HEALTH_CHECK = "/healthCheck"
 
     // User

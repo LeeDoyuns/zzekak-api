@@ -1,8 +1,8 @@
 package l1a.jjakkak.api.domain.common.response
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import l1a.jjakkak.core.domain.address.model.AppointmentAddressId
 import l1a.jjakkak.core.domain.address.model.AppointmentAddress
+import l1a.jjakkak.core.domain.address.model.AppointmentAddressId
 
 data class AddressResponse(
     @JsonProperty("id")
@@ -33,7 +33,7 @@ data class AddressResponse(
                     jibunAddress = address.jibunAddress,
                     roadAddress = address.roadAddress,
                     x = coordinate.x,
-                    y = coordinate.y
+                    y = coordinate.y,
                 )
             }
     }

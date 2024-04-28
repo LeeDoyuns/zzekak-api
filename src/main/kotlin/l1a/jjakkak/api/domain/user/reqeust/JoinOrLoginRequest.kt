@@ -16,6 +16,6 @@ internal data class JoinOrLoginRequest(
     fun toMessage(): JoinOrLoginMessage =
         JoinOrLoginMessage(
             token = token,
-            type = AuthenticationType.from(authenticationType.code)
+            type = AuthenticationType.from(authenticationType.code),
         )
 }

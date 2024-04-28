@@ -1,14 +1,13 @@
 package l1a.jjakkak.infra.domain.address.model
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.json.jsonObject
 
 @Serializable
-internal data class AddressRequest (
+internal data class AddressRequest(
     val keyword: String,
     val confmKey: String,
     val currentPage: Int,
@@ -17,12 +16,19 @@ internal data class AddressRequest (
     val hstryYn: String,
     val firstSort: String,
     val addInfoYn: String
-){
-    constructor(keyword:String, confmKey: String, ): this(keyword, confmKey,
-        1, 20, "json", "N", "none", "N")
+) {
+    constructor(keyword: String, confmKey: String) : this(
+        keyword,
+        confmKey,
+        1,
+        20,
+        "json",
+        "N",
+        "none",
+        "N",
+    )
 
-    fun returnToJSON(): JsonObject{
+    fun returnToJSON(): JsonObject {
         return Json.encodeToJsonElement(this).jsonObject
     }
-
 }

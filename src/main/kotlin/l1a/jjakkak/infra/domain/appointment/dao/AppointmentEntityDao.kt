@@ -5,7 +5,7 @@ import l1a.jjakkak.core.domain.user.UserId
 import l1a.jjakkak.infra.domain.appointment.entity.AppointmentEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
-import java.util.*
+import java.util.UUID
 
 interface AppointmentEntityDao {
     fun save(appointmentEntity: AppointmentEntity): AppointmentEntity

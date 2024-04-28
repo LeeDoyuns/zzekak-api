@@ -25,12 +25,13 @@ internal class AppointmentRepositoryImpl(
         val existed = dao.findById(appointmentCommand.id)
         val existedUsers = userDao.findAllByIds(appointmentCommand.participants)
 
-        val saved = dao.save(
-            appointmentCommand.toEntity(
-                existed = existed,
-                participants = existedUsers
+        val saved =
+            dao.save(
+                appointmentCommand.toEntity(
+                    existed = existed,
+                    participants = existedUsers,
+                ),
             )
-        )
 
         return saved.toDomain()
     }
@@ -48,7 +49,7 @@ internal class AppointmentRepositoryImpl(
         appointmentAddress = address.toEntity(existed?.appointmentAddress),
         appointmentTime = appointmentTime,
         participants = participants.toSet(),
-        deleted = false
+        deleted = false,
     )
 
     private fun AppointmentAddress.toEntity(existed: AppointmentAddressEntity?) =
@@ -60,7 +61,7 @@ internal class AppointmentRepositoryImpl(
             jibunAddress = address.jibunAddress,
             roadAddress = address.roadAddress,
             x = coordinate.x,
-            y = coordinate.y
+            y = coordinate.y,
         )
 
     private fun AppointmentEntity.toDomain() =
@@ -73,7 +74,7 @@ internal class AppointmentRepositoryImpl(
             participants = participants.map { UserId(it.userId) },
             createdAt = createdAt,
             updatedAt = updatedAt,
-            deleted = deleted
+            deleted = deleted,
         )
 
     private fun AppointmentAddressEntity.toDomain() =
@@ -85,6 +86,6 @@ internal class AppointmentRepositoryImpl(
             jibunAddress = jibunAddress,
             roadAddress = roadAddress,
             x = x,
-            y = y
+            y = y,
         )
 }

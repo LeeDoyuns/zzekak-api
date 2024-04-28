@@ -7,7 +7,6 @@ internal data class CoordinateResponse(
     override val y: String
 ) : Coordinate {
     companion object {
-        fun from(src: Coordinate): CoordinateResponse =
-            CoordinateResponse(x = src.x, y = src.y)
+        fun from(src: Coordinate): CoordinateResponse = CoordinateResponse(x = src.x, y = src.y)
     }
 }

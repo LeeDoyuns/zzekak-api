@@ -18,7 +18,7 @@ interface Agreement {
             AgreementImpl(
                 marketingConsent = marketingConsent,
                 locationConsent = locationConsent,
-                pushNotificationConsent = pushNotificationConsent
+                pushNotificationConsent = pushNotificationConsent,
             )
     }
 }

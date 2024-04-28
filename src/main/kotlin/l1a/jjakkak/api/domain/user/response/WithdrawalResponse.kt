@@ -5,16 +5,17 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import l1a.jjakkak.core.domain.user.WithdrawalResult
 
 @JsonSerialize
-internal class WithdrawalResponse (
+internal class WithdrawalResponse(
     @JsonProperty("result")
     val quitResult: Char,
     @JsonProperty("message")
     val message: String
-){
+) {
     companion object {
-        fun from(result: WithdrawalResult) = WithdrawalResponse(
-            quitResult = result.result,
-            message = result.message
-        )
+        fun from(result: WithdrawalResult) =
+            WithdrawalResponse(
+                quitResult = result.result,
+                message = result.message,
+            )
     }
 }

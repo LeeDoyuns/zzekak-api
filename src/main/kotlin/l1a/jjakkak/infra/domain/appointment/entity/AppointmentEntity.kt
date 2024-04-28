@@ -18,7 +18,7 @@ import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.Instant
-import java.util.*
+import java.util.UUID
 
 @Entity
 @Table(name = TABLE_APPOINTMENT)
@@ -26,28 +26,22 @@ import java.util.*
 class AppointmentEntity(
     @Id @Column(name = COLUMN_APPOINTMENT_ID)
     val appointmentId: UUID,
-
     @Column(name = COLUMN_OWNER_ID)
     val ownerId: UUID,
-
     @Column(name = COLUMN_NAME)
     val name: String,
-
     @JoinColumn(name = COLUMN_APPOINTMENT_ADDRESS_ID)
     @OneToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], orphanRemoval = true)
     val appointmentAddress: AppointmentAddressEntity,
-
     @Column(name = COLUMN_APPOINTMENT_TIME)
     val appointmentTime: Instant,
-
     @ManyToMany
     @JoinTable(
         name = AppointmentUserEntity.TABLE_USER_ADDRESS,
         joinColumns = [JoinColumn(name = "appointment_id")],
-        inverseJoinColumns = [JoinColumn(name = "user_id")]
+        inverseJoinColumns = [JoinColumn(name = "user_id")],
     )
     val participants: Set<UserEntity> = mutableSetOf(),
-
     @Column(name = COLUMN_DELETED)
     val deleted: Boolean
 ) {

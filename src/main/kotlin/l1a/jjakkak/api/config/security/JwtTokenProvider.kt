@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken
 import org.springframework.stereotype.Service
 import java.time.Instant
-import java.util.*
+import java.util.UUID
 
 @Service
 internal class JwtTokenProvider(
@@ -18,7 +18,6 @@ internal class JwtTokenProvider(
     private val privateKey: String,
     @Value("\${lia.auth.public-key-path}")
     private val publicKey: String
-
 ) : JwtMixin, InitializingBean {
     lateinit var alg: Algorithm
 
@@ -26,7 +25,10 @@ internal class JwtTokenProvider(
         alg = Algorithm.RSA256(getPublicKey(publicKey), getPrivateKey(privateKey))
     }
 
-    fun validate(token: String, now: Instant = Instant.now()) {
+    fun validate(
+        token: String,
+        now: Instant = Instant.now()
+    ) {
         JWT.decode(token).also {
             it.validateExpiry()
             it.validateSignature(alg)
@@ -35,7 +37,9 @@ internal class JwtTokenProvider(
 
     fun getAuthentication(token: String): Authentication =
         PreAuthenticatedAuthenticationToken(
-            UUID.fromString(decodeToken(token).subject), null, emptyList()
+            UUID.fromString(decodeToken(token).subject),
+            null,
+            emptyList(),
         )
 
     private fun decodeToken(token: String): DecodedJWT =

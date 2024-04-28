@@ -17,7 +17,7 @@ interface AuthenticationCommand {
         ): AuthenticationCommand =
             AuthenticationCommandImpl(
                 id = id,
-                type = type
+                type = type,
             )
     }
 }
@@ -44,7 +44,7 @@ interface AuthenticationQuery : AuthenticationCommand {
                 id = id,
                 type = type,
                 createdAt = createdAt,
-                updatedAt = updatedAt
+                updatedAt = updatedAt,
             )
     }
 }

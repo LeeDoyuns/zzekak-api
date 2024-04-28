@@ -22,10 +22,11 @@ internal class TokenRefreshUseCaseImpl(
     override fun refresh(refreshToken: String): Token {
         val algorithm: Algorithm = Algorithm.RSA256(getPublicKey(publicKey), getPrivateKey(privateKey))
 
-        val decoded = JWT.decode(refreshToken).also {
-            it.validateExpiry()
-            it.validateSignature(algorithm)
-        }
+        val decoded =
+            JWT.decode(refreshToken).also {
+                it.validateExpiry()
+                it.validateSignature(algorithm)
+            }
 
         val userId = UUID.fromString(decoded.subject)
 

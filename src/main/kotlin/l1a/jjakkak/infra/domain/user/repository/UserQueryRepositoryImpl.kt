@@ -12,7 +12,7 @@ import l1a.jjakkak.infra.domain.user.entity.UserEntity
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 import java.text.MessageFormat
-import java.util.*
+import java.util.UUID
 
 @Repository
 internal class UserQueryRepositoryImpl(
@@ -32,10 +32,12 @@ internal class UserQueryRepositoryImpl(
     override fun findUserByAuthenticationIdAndIsRemoved(
         authenticationId: AuthenticationId,
         isRemoved: Boolean
-    ): UserQuery? =
-        userEntityDao.findUserByAuthenticationIdAndIsRemoved(authenticationId, isRemoved)?.toDomainOfQuery()
+    ): UserQuery? = userEntityDao.findUserByAuthenticationIdAndIsRemoved(authenticationId, isRemoved)?.toDomainOfQuery()
 
-    override fun findUserByUserIdAndIsRemoved(userId: UUID, isRemoved: Boolean): UserQuery? {
+    override fun findUserByUserIdAndIsRemoved(
+        userId: UUID,
+        isRemoved: Boolean
+    ): UserQuery? {
         return userEntityDao.findUserByUserIdAndIsRemoved(userId, isRemoved)?.toDomainOfQuery()
     }
 
@@ -44,15 +46,15 @@ internal class UserQueryRepositoryImpl(
             id = UserId(userId),
             name = name,
             authentication = authenticationEntity.toDomainQuery(),
-            agreement = Agreement.create(
-                marketingConsent = marketingConsent,
-                locationConsent = locationConsent,
-                pushNotificationConsent = pushNotificationConsent
-
-            ),
+            agreement =
+                Agreement.create(
+                    marketingConsent = marketingConsent,
+                    locationConsent = locationConsent,
+                    pushNotificationConsent = pushNotificationConsent,
+                ),
             createdAt = createdAt,
             updatedAt = updatedAt,
-            isRemoved = isRemoved
+            isRemoved = isRemoved,
         )
 
     private fun AuthenticationEntity.toDomainQuery(): AuthenticationQuery =
@@ -60,6 +62,6 @@ internal class UserQueryRepositoryImpl(
             id = AuthenticationId(authenticationId),
             type = type,
             createdAt = createdAt,
-            updatedAt = updatedAt
+            updatedAt = updatedAt,
         )
 }

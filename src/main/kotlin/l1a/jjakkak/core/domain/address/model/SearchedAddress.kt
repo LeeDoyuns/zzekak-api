@@ -1,6 +1,6 @@
 package l1a.jjakkak.core.domain.address.model
 
-interface SearchedAddress: Address, AdditionalAddressInfo {
+interface SearchedAddress : Address, AdditionalAddressInfo {
     companion object {
         fun create(
             administrativeCode: String,
@@ -13,18 +13,19 @@ interface SearchedAddress: Address, AdditionalAddressInfo {
             postalCode: String,
             jibunAddress: String,
             roadAddress: String
-        ): SearchedAddress = SearchedAddressImpl(
-            administrativeCode = administrativeCode,
-            roadNameCode = roadNameCode,
-            undergroundIndicator = undergroundIndicator,
-            buildingMainNumber = buildingMainNumber,
-            buildingSubNumber = buildingSubNumber,
-            cityOrProvince = cityOrProvince,
-            districtOrCity = districtOrCity,
-            postalCode = postalCode,
-            jibunAddress = jibunAddress,
-            roadAddress = roadAddress
-        )
+        ): SearchedAddress =
+            SearchedAddressImpl(
+                administrativeCode = administrativeCode,
+                roadNameCode = roadNameCode,
+                undergroundIndicator = undergroundIndicator,
+                buildingMainNumber = buildingMainNumber,
+                buildingSubNumber = buildingSubNumber,
+                cityOrProvince = cityOrProvince,
+                districtOrCity = districtOrCity,
+                postalCode = postalCode,
+                jibunAddress = jibunAddress,
+                roadAddress = roadAddress,
+            )
     }
 }
 

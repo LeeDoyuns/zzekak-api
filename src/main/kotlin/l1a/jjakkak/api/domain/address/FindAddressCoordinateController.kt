@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RequestMapping(
-    produces = [MediaType.APPLICATION_JSON_VALUE]
+    produces = [MediaType.APPLICATION_JSON_VALUE],
 )
 internal interface FindAddressCoordinateController {
     @GetMapping(ApiUrl.ADDRESS_COORDINATE_SEARCH)
-    fun findAddressCoordinate(@ModelAttribute request: CoordinateSearchRequest): CoordinateResponse
+    fun findAddressCoordinate(
+        @ModelAttribute request: CoordinateSearchRequest
+    ): CoordinateResponse
 }
 
 @RestController

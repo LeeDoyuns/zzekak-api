@@ -1,7 +1,6 @@
 package l1a.jjakkak.infra.domain.user.repository
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.type.TypeReference
 import l1a.jjakkak.core.domain.user.repository.AuthRepository
 import l1a.jjakkak.core.util.ObjectMapper
 import org.springframework.beans.factory.InitializingBean
@@ -22,18 +21,19 @@ internal class AuthRepositoryImpl(
     lateinit var httpClient: HttpClient
 
     override fun getKakaoLoginPublicKey(): List<AuthRepository.RSAPublicKeyInfo> {
-        val request = HttpRequest.newBuilder()
-            .uri(URI(kakaoPublicKeyUrl))
-            .GET()
-            .build()
+        val request =
+            HttpRequest.newBuilder()
+                .uri(URI(kakaoPublicKeyUrl))
+                .GET()
+                .build()
 
         val response = httpClient.send(request, HttpResponse.BodyHandlers.ofString())
 
-
-        val parsed = ObjectMapper.objectMapper.readValue(
-            response.body(),
-            KakaoPublicKeys::class.java
-        )
+        val parsed =
+            ObjectMapper.objectMapper.readValue(
+                response.body(),
+                KakaoPublicKeys::class.java,
+            )
 
         return parsed.keys.map {
             AuthRepository.RSAPublicKeyInfo(
@@ -42,24 +42,25 @@ internal class AuthRepositoryImpl(
                 alg = it.alg,
                 use = it.use,
                 n = it.n,
-                e = it.e
+                e = it.e,
             )
         }
     }
 
     override fun getAppleLoginPublicKey(): List<AuthRepository.RSAPublicKeyInfo> {
-        val request = HttpRequest.newBuilder()
-            .uri(URI(applePublicKeyUrl))
-            .GET()
-            .build()
+        val request =
+            HttpRequest.newBuilder()
+                .uri(URI(applePublicKeyUrl))
+                .GET()
+                .build()
 
         val response = httpClient.send(request, HttpResponse.BodyHandlers.ofString())
 
-
-        val parsed = ObjectMapper.objectMapper.readValue(
-            response.body(),
-            ApplePublicKeys::class.java
-        )
+        val parsed =
+            ObjectMapper.objectMapper.readValue(
+                response.body(),
+                ApplePublicKeys::class.java,
+            )
 
         return parsed.keys.map {
             AuthRepository.RSAPublicKeyInfo(
@@ -68,7 +69,7 @@ internal class AuthRepositoryImpl(
                 alg = it.alg,
                 use = it.use,
                 n = it.n,
-                e = it.e
+                e = it.e,
             )
         }
     }

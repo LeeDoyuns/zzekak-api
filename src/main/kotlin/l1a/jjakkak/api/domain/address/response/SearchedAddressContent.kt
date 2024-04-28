@@ -38,7 +38,7 @@ internal data class SearchedAddressContent(
                     roadNameCode = roadNameCode,
                     undergroundIndicator = undergroundIndicator,
                     buildingMainNumber = buildingMainNumber,
-                    buildingSubNumber = buildingSubNumber
+                    buildingSubNumber = buildingSubNumber,
                 )
             }
     }

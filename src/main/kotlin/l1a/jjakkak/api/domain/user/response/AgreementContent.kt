@@ -20,7 +20,7 @@ internal data class AgreementContent(
                 AgreementContent(
                     marketingConsent = marketingConsent,
                     locationConsent = locationConsent,
-                    pushNotificationConsent = pushNotificationConsent
+                    pushNotificationConsent = pushNotificationConsent,
                 )
             }
     }

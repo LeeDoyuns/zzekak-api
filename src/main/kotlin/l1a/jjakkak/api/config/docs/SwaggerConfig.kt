@@ -4,8 +4,6 @@ import io.swagger.v3.oas.models.Components
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.Operation
 import io.swagger.v3.oas.models.info.Info
-import io.swagger.v3.oas.models.media.MediaType
-import io.swagger.v3.oas.models.parameters.RequestBody
 import io.swagger.v3.oas.models.security.SecurityRequirement
 import io.swagger.v3.oas.models.security.SecurityScheme
 import l1a.jjakkak.api.ApiUrl
@@ -31,7 +29,7 @@ class SwaggerConfig {
             .pathsToMatch("${ApiUrl.APPOINTMENT}/**")
             .addOpenApiCustomizer(openApiCustomizer())
             .build()
-   
+
     @Bean
     fun addressApi(): GroupedOpenApi =
         GroupedOpenApi.builder()
@@ -47,29 +45,31 @@ class SwaggerConfig {
                 Info()
                     .title("째깍 api")
                     .version("v1")
-                    .description("시간은 째깍째깍")
+                    .description("시간은 째깍째깍"),
             )
             .addSecurityItem(SecurityRequirement().addList("bearerAuth"))
             .addSecurityItem(SecurityRequirement().addList("basicAuth"))
             .components(
                 Components()
                     .addSecuritySchemes(
-                        "bearerAuth", SecurityScheme()
+                        "bearerAuth",
+                        SecurityScheme()
                             .name("bearerAuth")
                             .type(SecurityScheme.Type.HTTP)
                             .scheme("bearer")
-                            .bearerFormat("JWT")
-                    )
+                            .bearerFormat("JWT"),
+                    ),
             )
 
     @Bean
-    fun openApiCustomizer(): OpenApiCustomizer = OpenApiCustomizer { openApi ->
-        openApi.paths.values.forEach { pathItem ->
-            pathItem.readOperations().forEach { operation ->
-                customizeOperation(operation)
+    fun openApiCustomizer(): OpenApiCustomizer =
+        OpenApiCustomizer { openApi ->
+            openApi.paths.values.forEach { pathItem ->
+                pathItem.readOperations().forEach { operation ->
+                    customizeOperation(operation)
+                }
             }
         }
-    }
 
     private fun customizeOperation(operation: Operation) {
         // 기본 태그 대체

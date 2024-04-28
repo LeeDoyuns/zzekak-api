@@ -2,7 +2,6 @@ package l1a.jjakkak.infra.domain.address.model
 
 import l1a.jjakkak.core.domain.address.model.SearchedAddress
 
-
 internal data class AddressResponse(
     val results: Results?
 )
@@ -12,7 +11,7 @@ internal data class Results(
     val juso: List<Juso>?
 )
 
-internal data class Common (
+internal data class Common(
     val errorMessage: String?,
     val countPerPage: String?,
     val totalCount: String?,
@@ -20,7 +19,8 @@ internal data class Common (
     val currentPage: String?,
 )
 
-internal data class Juso(    //해당 클래스는 좌표검색과 공용으로 사용하므로 기본값을 빈값으로 한다.
+// 해당 클래스는 좌표검색과 공용으로 사용하므로 기본값을 빈값으로 한다.
+internal data class Juso(
     val detBdNmList: String = "",
     val engAddr: String = "",
     val rn: String = "",
@@ -45,11 +45,13 @@ internal data class Juso(    //해당 클래스는 좌표검색과 공용으로 
     val mtYn: String = "",
     val bdMgtSn: String = "",
     val buldSlno: String = "",
-    val entX: String = "0.0",      //x좌표
-    val entY: String = "0.0",      //y좌표
+    // x좌표
+    val entX: String = "0.0",
+    // y좌표
+    val entY: String = "0.0",
 )
 
-data class AddressObject (
+data class AddressObject(
     override val cityOrProvince: String,
     override val districtOrCity: String,
     override val postalCode: String,
@@ -60,4 +62,4 @@ data class AddressObject (
     override val undergroundIndicator: String,
     override val buildingMainNumber: String,
     override val buildingSubNumber: String,
-    ) : SearchedAddress
+) : SearchedAddress

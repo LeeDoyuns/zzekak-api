@@ -6,7 +6,7 @@ internal data class AddressResponse(val content: List<SearchedAddressContent>) {
     companion object {
         fun from(src: Collection<SearchedAddress>): AddressResponse =
             AddressResponse(
-                content = src.map { SearchedAddressContent.from(it) }
+                content = src.map { SearchedAddressContent.from(it) },
             )
     }
 }

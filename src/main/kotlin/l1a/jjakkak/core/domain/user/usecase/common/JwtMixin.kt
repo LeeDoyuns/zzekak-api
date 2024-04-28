@@ -4,19 +4,16 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.TokenExpiredException
 import com.auth0.jwt.interfaces.DecodedJWT
-import l1a.jjakkak.core.domain.user.repository.AuthRepository
-import java.math.BigInteger
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.security.KeyFactory
-import java.security.PublicKey
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
 import java.security.spec.PKCS8EncodedKeySpec
-import java.security.spec.RSAPublicKeySpec
 import java.security.spec.X509EncodedKeySpec
 import java.time.Instant
-import java.util.*
+import java.util.Base64
+import java.util.UUID
 
 interface JwtMixin {
     fun DecodedJWT.validateExpiry() =
@@ -26,10 +23,12 @@ interface JwtMixin {
             }
         }
 
-    fun DecodedJWT.validateSignature(alg: Algorithm): DecodedJWT =
-        JWT.require(alg).build().verify(this)
+    fun DecodedJWT.validateSignature(alg: Algorithm): DecodedJWT = JWT.require(alg).build().verify(this)
 
-    fun createToken(userId: UUID, alg: Algorithm): Pair<String, String> =
+    fun createToken(
+        userId: UUID,
+        alg: Algorithm
+    ): Pair<String, String> =
         JWT.create()
             .withIssuer(TOKEN_ISSUER)
             .withSubject(userId.toString())
@@ -38,7 +37,7 @@ interface JwtMixin {
                 val now = Instant.now()
 
                 withExpiresAt(now.plusSeconds(ACCESS_TOKEN_EXPIRY)).sign(alg) to
-                        withExpiresAt(now.plusSeconds(REFRESH_TOKEN_EXPIRY)).sign(alg)
+                    withExpiresAt(now.plusSeconds(REFRESH_TOKEN_EXPIRY)).sign(alg)
             }
 
     fun getPrivateKey(privateKey: String): RSAPrivateKey {
@@ -48,10 +47,11 @@ interface JwtMixin {
     }
 
     fun getPublicKey(publicKey: String): RSAPublicKey {
-        val publicKeyPEM = Files.readString(Paths.get(publicKey))
-            .replace("-----BEGIN PUBLIC KEY-----", "")
-            .replace("-----END PUBLIC KEY-----", "")
-            .replace("\\s".toRegex(), "")
+        val publicKeyPEM =
+            Files.readString(Paths.get(publicKey))
+                .replace("-----BEGIN PUBLIC KEY-----", "")
+                .replace("-----END PUBLIC KEY-----", "")
+                .replace("\\s".toRegex(), "")
 
         val decoded = Base64.getDecoder().decode(publicKeyPEM)
         return KeyFactory.getInstance(ALG)

@@ -20,25 +20,18 @@ import java.util.UUID
 class AppointmentAddressEntity(
     @Id @Column(name = APPOINTMENT_ADDRESS_ID) @GeneratedValue(strategy = GenerationType.AUTO)
     val id: UUID,
-
     @Column(name = CITY_OR_PROVINCE)
     val cityOrProvince: String,
-
     @Column(name = DISTRICT_OR_CITY)
     val districtOrCity: String,
-
     @Column(name = POSTAL_CODE)
     val postalCode: String,
-
     @Column(name = JIBUN_ADDRESS)
     val jibunAddress: String,
-
     @Column(name = ROAD_ADDRESS)
     val roadAddress: String,
-
     @Column(name = COORDINATE_X)
     val x: String,
-
     @Column(name = COORDINATE_Y)
     val y: String
 ) {

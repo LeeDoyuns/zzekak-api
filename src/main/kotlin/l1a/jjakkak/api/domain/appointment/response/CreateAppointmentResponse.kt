@@ -30,9 +30,10 @@ internal data class CreateAppointmentResponse(
                     id = id,
                     ownerId = ownerId,
                     appointmentName = name,
-                    address = AddressResponse.from(address), appointmentTime = appointmentTime,
+                    address = AddressResponse.from(address),
+                    appointmentTime = appointmentTime,
                     createdAt = createdAt,
-                    updatedAt = updatedAt
+                    updatedAt = updatedAt,
                 )
             }
     }

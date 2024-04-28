@@ -15,7 +15,7 @@ internal data class TokenResponse(
         fun from(token: Token) =
             TokenResponse(
                 accessToken = token.accessToken,
-                refreshToken = token.refreshToken
+                refreshToken = token.refreshToken,
             )
     }
 }

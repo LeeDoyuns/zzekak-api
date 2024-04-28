@@ -14,15 +14,16 @@ data class FindAppointmentResponse(
     companion object {
         fun from(src: Collection<AppointmentQuery>): FindAppointmentResponse =
             FindAppointmentResponse(
-                content = src.map {
-                    FindAppointmentContent(
-                        id = it.id,
-                        appointmentName = it.name,
-                        address = AddressResponse.from(it.address),
-                        appointmentTime = it.appointmentTime,
-                        participants = it.participants
-                    )
-                }
+                content =
+                    src.map {
+                        FindAppointmentContent(
+                            id = it.id,
+                            appointmentName = it.name,
+                            address = AddressResponse.from(it.address),
+                            appointmentTime = it.appointmentTime,
+                            participants = it.participants,
+                        )
+                    },
             )
     }
 }

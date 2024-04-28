@@ -1,7 +1,7 @@
 package l1a.jjakkak.core.domain.address.model
 
 import l1a.jjakkak.core.domain.common.IdTypeUUID
-import java.util.*
+import java.util.UUID
 
 @JvmInline
 value class AppointmentAddressId(override val value: UUID) : IdTypeUUID
@@ -24,14 +24,15 @@ interface AppointmentAddress {
         ): AppointmentAddress =
             AppointmentAddressImpl(
                 id = id,
-                address = Address.create(
-                    cityOrProvince = cityOrProvince,
-                    districtOrCity = districtOrCity,
-                    postalCode = postalCode,
-                    jibunAddress = jibunAddress,
-                    roadAddress = roadAddress
-                ),
-                coordinate = Coordinate.create(x = x, y = y)
+                address =
+                    Address.create(
+                        cityOrProvince = cityOrProvince,
+                        districtOrCity = districtOrCity,
+                        postalCode = postalCode,
+                        jibunAddress = jibunAddress,
+                        roadAddress = roadAddress,
+                    ),
+                coordinate = Coordinate.create(x = x, y = y),
             )
     }
 }

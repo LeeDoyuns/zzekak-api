@@ -15,7 +15,6 @@ interface AuthenticationEntityJpaRepository : JpaRepository<AuthenticationEntity
 class SocialAuthenticationDaoImpl(
     val delegate: AuthenticationEntityJpaRepository
 ) : SocialAuthenticationDao {
-    override fun save(
-        authenticationEntity: AuthenticationEntity
-    ): AuthenticationEntity = delegate.save(authenticationEntity)
+    override fun save(authenticationEntity: AuthenticationEntity): AuthenticationEntity =
+        delegate.save(authenticationEntity)
 }

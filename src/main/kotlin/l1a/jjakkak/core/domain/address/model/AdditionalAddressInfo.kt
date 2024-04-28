@@ -26,13 +26,14 @@ interface AdditionalAddressInfo {
             undergroundIndicator: String,
             buildingMainNumber: String,
             buildingSubNumber: String
-        ): AdditionalAddressInfo = AdditionalAddressInfoImpl(
-            administrativeCode = administrativeCode,
-            roadNameCode = roadNameCode,
-            undergroundIndicator = undergroundIndicator,
-            buildingMainNumber = buildingMainNumber,
-            buildingSubNumber = buildingSubNumber
-        )
+        ): AdditionalAddressInfo =
+            AdditionalAddressInfoImpl(
+                administrativeCode = administrativeCode,
+                roadNameCode = roadNameCode,
+                undergroundIndicator = undergroundIndicator,
+                buildingMainNumber = buildingMainNumber,
+                buildingSubNumber = buildingSubNumber,
+            )
     }
 }
 

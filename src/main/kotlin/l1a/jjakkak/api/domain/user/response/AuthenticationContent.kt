@@ -25,7 +25,7 @@ internal data class AuthenticationContent(
                     id = id,
                     type = type,
                     createdAt = createdAt,
-                    updatedAt = updatedAt
+                    updatedAt = updatedAt,
                 )
             }
     }

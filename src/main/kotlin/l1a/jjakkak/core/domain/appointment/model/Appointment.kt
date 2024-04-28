@@ -3,9 +3,8 @@ package l1a.jjakkak.core.domain.appointment.model
 import l1a.jjakkak.core.domain.address.model.AppointmentAddress
 import l1a.jjakkak.core.domain.common.IdTypeUUID
 import l1a.jjakkak.core.domain.user.UserId
-import l1a.jjakkak.core.domain.user.UserQuery
 import java.time.Instant
-import java.util.*
+import java.util.UUID
 
 @JvmInline
 value class AppointmentId(override val value: UUID) : IdTypeUUID
@@ -36,7 +35,7 @@ interface AppointmentCommand {
                 address = address,
                 appointmentTime = appointmentTime,
                 participants = participants.toList(),
-                deleted = deleted
+                deleted = deleted,
             )
     }
 }
@@ -82,7 +81,7 @@ interface AppointmentQuery : AppointmentCommand {
                 participants = participants,
                 createdAt = createdAt,
                 updatedAt = updatedAt,
-                deleted = deleted
+                deleted = deleted,
             )
     }
 }

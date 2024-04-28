@@ -5,7 +5,6 @@ import l1a.jjakkak.api.config.exception.ZzekakException
 import l1a.jjakkak.core.domain.user.WithdrawalResult
 import l1a.jjakkak.core.domain.user.message.WithdrawalMessage
 import l1a.jjakkak.core.domain.user.repository.UserCommandRepository
-import l1a.jjakkak.core.domain.user.repository.UserQueryRepository
 import org.springframework.stereotype.Service
 
 interface WithdrawalUseCase {
@@ -15,16 +14,17 @@ interface WithdrawalUseCase {
 @Service
 internal class WithdrawalUseCaseImpl(
     val userRepo: UserCommandRepository
-): WithdrawalUseCase {
+) : WithdrawalUseCase {
     override fun withdrawal(message: WithdrawalMessage): WithdrawalResult {
         val (userId) = message
-        val user = userRepo.findById(userId)
-            ?: throw ZzekakException(ExceptionEnum.NO_EXIST_USER)
+        val user =
+            userRepo.findById(userId)
+                ?: throw ZzekakException(ExceptionEnum.NO_EXIST_USER)
 
         return userRepo.save(user.deleteUser()).let {
             WithdrawalResult(
                 result = 'Y',
-                message = "성공적으로 탈퇴처리 되었습니다."
+                message = "성공적으로 탈퇴처리 되었습니다.",
             )
         }
     }

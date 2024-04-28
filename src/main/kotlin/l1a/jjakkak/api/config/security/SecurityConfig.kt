@@ -42,15 +42,13 @@ internal class SecurityConfig {
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .build()
 
-
-
     companion object {
         val AUTHENTICATION_BY_PASS_LIST =
             listOf(
                 ApiUrl.USER_JOIN_OR_LOGIN,
                 ApiUrl.USER_TOKEN_REFRESH,
                 "${ApiUrl.DOCS}/**",
-                ApiUrl.HEALTH_CHECK
+                ApiUrl.HEALTH_CHECK,
             ).toTypedArray()
     }
 }

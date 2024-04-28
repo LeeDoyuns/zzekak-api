@@ -12,17 +12,19 @@ import org.springframework.web.bind.annotation.RestController
 
 @RequestMapping(
     produces = [MediaType.APPLICATION_JSON_VALUE],
-    consumes = [MediaType.APPLICATION_JSON_VALUE]
+    consumes = [MediaType.APPLICATION_JSON_VALUE],
 )
 internal interface RefreshTokenController {
     @PostMapping(ApiUrl.USER_TOKEN_REFRESH)
-    fun refresh(@RequestBody request: RefreshTokenRequest): TokenResponse
+    fun refresh(
+        @RequestBody request: RefreshTokenRequest
+    ): TokenResponse
 }
 
 @RestController
 internal class RefreshTokenControllerImpl(
     val useCase: TokenRefreshUseCase
-): RefreshTokenController {
+) : RefreshTokenController {
     override fun refresh(request: RefreshTokenRequest): TokenResponse =
         useCase.refresh(request.refreshToken)
             .run { TokenResponse.from(this) }

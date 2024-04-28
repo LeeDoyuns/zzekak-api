@@ -11,21 +11,23 @@ import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-
 @RequestMapping(
     produces = [MediaType.APPLICATION_JSON_VALUE],
-    consumes = [MediaType.APPLICATION_JSON_VALUE]
+    consumes = [MediaType.APPLICATION_JSON_VALUE],
 )
 internal interface UserWithdrawalController {
     @PutMapping(ApiUrl.USER_WITHDRAWAL)
-    fun userWithdrawal(@RequestHeader headers: HttpHeaders): WithdrawalResponse
+    fun userWithdrawal(
+        @RequestHeader headers: HttpHeaders
+    ): WithdrawalResponse
 }
+
 @RestController
-internal class UserWithdrawalControllerImpl (
+internal class UserWithdrawalControllerImpl(
     val useCase: WithdrawalUseCase
-): UserWithdrawalController  {
+) : UserWithdrawalController {
     override fun userWithdrawal(headers: HttpHeaders): WithdrawalResponse {
         val token = headers["Authorization"].toString().replace("Bearer ", "")
-        return  useCase.withdrawal(UserWithdrawalRequest(token).toMessage()).run { WithdrawalResponse.from(this) }
+        return useCase.withdrawal(UserWithdrawalRequest(token).toMessage()).run { WithdrawalResponse.from(this) }
     }
 }

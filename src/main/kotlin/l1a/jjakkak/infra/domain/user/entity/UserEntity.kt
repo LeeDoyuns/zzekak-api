@@ -14,7 +14,7 @@ import l1a.jjakkak.core.domain.user.UserId
 import l1a.jjakkak.infra.domain.common.entity.AuditableBase
 import l1a.jjakkak.infra.domain.user.entity.UserEntity.Companion.TABLE_USER
 import java.time.Instant
-import java.util.*
+import java.util.UUID
 
 @Entity
 @Table(name = TABLE_USER)
@@ -22,38 +22,32 @@ class UserEntity(
     @Id
     @Column(name = COLUMN_USER_ID)
     val userId: UUID,
-
     @Column(name = COLUMN_NAME)
     var name: String,
-
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "userEntity", cascade = [CascadeType.ALL], orphanRemoval = true)
     @JoinColumn(name = AuthenticationEntity.COLUMN_USER_ID)
     val authenticationEntity: AuthenticationEntity,
-
     @Column(name = COLUMN_MARKETING_CONSENT)
     var marketingConsent: Instant?,
-
     @Column(name = COLUMN_LOCATION_CONSENT)
     var locationConsent: Instant?,
-
     @Column(name = COLUMN_PUSH_NOTIFICATION_CONSENT)
     var pushNotificationConsent: Instant?,
-
     @Column(name = COLUMN_IS_REMOVED)
     var isRemoved: Boolean
 ) : AuditableBase() {
-
     fun toDomain(): UserCommand =
         UserCommand.create(
             id = UserId(userId),
             name = name,
             authentication = authenticationEntity.toDomain(),
-            agreement = Agreement.create(
-                marketingConsent = marketingConsent,
-                locationConsent = locationConsent,
-                pushNotificationConsent = pushNotificationConsent
-            ),
-            isRemoved = isRemoved
+            agreement =
+                Agreement.create(
+                    marketingConsent = marketingConsent,
+                    locationConsent = locationConsent,
+                    pushNotificationConsent = pushNotificationConsent,
+                ),
+            isRemoved = isRemoved,
         )
 
     companion object {
@@ -73,7 +67,7 @@ class UserEntity(
                 marketingConsent = src.agreement.marketingConsent,
                 locationConsent = src.agreement.locationConsent,
                 pushNotificationConsent = src.agreement.pushNotificationConsent,
-                isRemoved = src.isRemoved
+                isRemoved = src.isRemoved,
             ).apply {
                 authenticationEntity.userEntity = this
             }

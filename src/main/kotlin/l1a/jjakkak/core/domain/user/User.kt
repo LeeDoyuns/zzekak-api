@@ -2,7 +2,7 @@ package l1a.jjakkak.core.domain.user
 
 import l1a.jjakkak.core.domain.common.IdTypeUUID
 import java.time.Instant
-import java.util.*
+import java.util.UUID
 
 @JvmInline
 value class UserId(override val value: UUID) : IdTypeUUID
@@ -20,7 +20,7 @@ interface UserCommand {
             name = name,
             authenticationCommand = authenticationCommand,
             agreement = agreement,
-            isRemoved = true
+            isRemoved = true,
         )
 
     companion object {
@@ -36,7 +36,7 @@ interface UserCommand {
                 name = name,
                 authenticationCommand = authentication,
                 agreement = agreement,
-                isRemoved = isRemoved
+                isRemoved = isRemoved,
             )
     }
 }
@@ -75,7 +75,7 @@ interface UserQuery {
                 agreement = agreement,
                 createdAt = createdAt,
                 updatedAt = updatedAt,
-                isRemoved = isRemoved
+                isRemoved = isRemoved,
             )
     }
 }

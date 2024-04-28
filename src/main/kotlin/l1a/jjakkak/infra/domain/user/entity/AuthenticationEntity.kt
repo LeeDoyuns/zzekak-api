@@ -21,7 +21,6 @@ class AuthenticationEntity(
     @Id
     @Column(name = COLUMN_AUTHENTICATION_ID)
     val authenticationId: String,
-
     @Column(name = COLUMN_TYPE)
     @Convert(converter = AuthenticationTypeConverter::class)
     var type: AuthenticationType,
@@ -33,7 +32,7 @@ class AuthenticationEntity(
     fun toDomain(): AuthenticationCommand =
         AuthenticationCommand.create(
             id = AuthenticationId(authenticationId),
-            type = type
+            type = type,
         )
 
     companion object {
@@ -45,7 +44,7 @@ class AuthenticationEntity(
         fun from(src: AuthenticationCommand): AuthenticationEntity =
             AuthenticationEntity(
                 authenticationId = src.id.value,
-                type = src.type
+                type = src.type,
             )
     }
 }

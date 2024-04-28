@@ -30,7 +30,7 @@ internal data class GetUserResponse(
                     authentication = AuthenticationContent.from(authentication),
                     agreement = AgreementContent.from(agreement),
                     createdAt = createdAt,
-                    updatedAt = updatedAt
+                    updatedAt = updatedAt,
                 )
             }
     }

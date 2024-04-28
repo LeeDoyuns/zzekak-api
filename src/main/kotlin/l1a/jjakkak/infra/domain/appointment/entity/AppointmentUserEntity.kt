@@ -1,10 +1,8 @@
 package l1a.jjakkak.infra.domain.appointment.entity
 
-import jakarta.persistence.Column
 import jakarta.persistence.Embeddable
 import jakarta.persistence.EmbeddedId
 import jakarta.persistence.Entity
-import jakarta.persistence.EntityListeners
 import jakarta.persistence.FetchType
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
@@ -13,19 +11,17 @@ import jakarta.persistence.Table
 import l1a.jjakkak.infra.domain.appointment.entity.AppointmentUserEntity.Companion.TABLE_USER_ADDRESS
 import l1a.jjakkak.infra.domain.user.entity.UserEntity
 import java.io.Serializable
-import java.util.*
+import java.util.UUID
 
 @Entity
 @Table(name = TABLE_USER_ADDRESS)
 internal class AppointmentUserEntity(
     @EmbeddedId
     val id: AppointmentUserId,
-
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("appointmentId")
     @JoinColumn(name = AppointmentEntity.COLUMN_APPOINTMENT_ID)
     val appointment: AppointmentEntity,
-
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("userId")
     @JoinColumn(name = UserEntity.COLUMN_USER_ID)

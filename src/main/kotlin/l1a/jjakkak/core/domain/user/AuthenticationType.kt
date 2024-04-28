@@ -11,9 +11,11 @@ import java.security.KeyFactory
 import java.security.PublicKey
 import java.security.interfaces.RSAPublicKey
 import java.security.spec.RSAPublicKeySpec
-import java.util.*
+import java.util.Base64
 
-enum class AuthenticationType(@JsonValue val code: String) {
+enum class AuthenticationType(
+    @JsonValue val code: String
+) {
     KAKAO(code = "ka") {
         override fun decode(token: String): AuthToken {
             val (header, payload, sig) =
@@ -27,7 +29,7 @@ enum class AuthenticationType(@JsonValue val code: String) {
             return AuthToken(
                 header = decodedHeader,
                 payload = decodedPayload,
-                signature = sig
+                signature = sig,
             )
         }
 
@@ -40,10 +42,11 @@ enum class AuthenticationType(@JsonValue val code: String) {
 
             val alg = Algorithm.RSA256(publicKey, null)
 
-            val verifier = JWT.require(alg)
-                .withIssuer("https://kauth.kakao.com")
-                .withAudience(appKey)
-                .build()
+            val verifier =
+                JWT.require(alg)
+                    .withIssuer("https://kauth.kakao.com")
+                    .withAudience(appKey)
+                    .build()
 
             verifier.verify(token)
         }
@@ -53,7 +56,11 @@ enum class AuthenticationType(@JsonValue val code: String) {
             TODO()
         }
 
-        override fun validate(token: String, appKey: String, rsaPublicKeyInfo: AuthRepository.RSAPublicKeyInfo) {
+        override fun validate(
+            token: String,
+            appKey: String,
+            rsaPublicKeyInfo: AuthRepository.RSAPublicKeyInfo
+        ) {
             TODO("Not yet implemented")
         }
     };

@@ -11,9 +11,8 @@ interface Coordinate {
         ): Coordinate =
             CoordinateImpl(
                 x = x,
-                y = y
+                y = y,
             )
-
     }
 }
 

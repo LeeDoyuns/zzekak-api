@@ -1,8 +1,5 @@
 package l1a.jjakkak.core.domain.address.model
 
-import l1a.jjakkak.core.domain.common.IdTypeUUID
-import java.util.*
-
 interface Address {
     /** 시, 도 */
     val cityOrProvince: String
@@ -32,7 +29,7 @@ interface Address {
                 districtOrCity = districtOrCity,
                 postalCode = postalCode,
                 jibunAddress = jibunAddress,
-                roadAddress = roadAddress
+                roadAddress = roadAddress,
             )
     }
 }

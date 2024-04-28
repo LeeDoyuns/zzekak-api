@@ -17,9 +17,8 @@ import l1a.jjakkak.core.domain.user.repository.UserQueryRepository
 import l1a.jjakkak.core.domain.user.usecase.common.JwtMixin
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import org.springframework.stereotype.Service
-import java.util.*
+import java.util.UUID
 
 interface JoinOrLoginUseCase {
     fun joinOrLogin(message: JoinOrLoginMessage): Token
@@ -51,31 +50,35 @@ internal class JoinOrLoginUseCaseImpl(
         type.validate(
             token = token,
             appKey = appKey,
-            rsaPublicKeyInfo = type.getRSAPublicKeyInfo(decodedToken)
+            rsaPublicKeyInfo = type.getRSAPublicKeyInfo(decodedToken),
         )
 
-        val user = userQueryRepo
-            .findUserByAuthenticationIdAndIsRemoved(AuthenticationId(decodedToken.payload.sub), false)?.id     //삭제여부 컬럼 추가
-            ?: createUser(decodedToken, type).run { userCommandRepo.save(this).id }
+        val user =
+            userQueryRepo
+                .findUserByAuthenticationIdAndIsRemoved(AuthenticationId(decodedToken.payload.sub), false)?.id // 삭제여부 컬럼 추가
+                ?: createUser(decodedToken, type).run { userCommandRepo.save(this).id }
 
         val (accessToken, refreshToken) = createToken(user.value, algorithm)
 
         return Token(
             accessToken = accessToken,
-            refreshToken = refreshToken
+            refreshToken = refreshToken,
         )
     }
 
-    private fun createUser(authToken: AuthToken, type: AuthenticationType) =
-        UserCommand.create(
-            id = UserId(UUID.randomUUID()),
-            name = "",
-            authentication = AuthenticationCommand.create(
+    private fun createUser(
+        authToken: AuthToken,
+        type: AuthenticationType
+    ) = UserCommand.create(
+        id = UserId(UUID.randomUUID()),
+        name = "",
+        authentication =
+            AuthenticationCommand.create(
                 id = AuthenticationId(authToken.payload.sub),
-                type = type
+                type = type,
             ),
-            agreement = Agreement.EMPTY,
-        )
+        agreement = Agreement.EMPTY,
+    )
 
     private fun AuthenticationType.getRSAPublicKeyInfo(authToken: AuthToken): AuthRepository.RSAPublicKeyInfo =
         when (this) {

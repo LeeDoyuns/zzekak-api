@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RequestMapping(
-    produces = [MediaType.APPLICATION_JSON_VALUE]
+    produces = [MediaType.APPLICATION_JSON_VALUE],
 )
 internal interface FindAddressController {
     @GetMapping(ApiUrl.ADDRESS_SEARCH)
-    fun findAddress(@RequestParam keyword: String): AddressResponse
+    fun findAddress(
+        @RequestParam keyword: String
+    ): AddressResponse
 }
 
 @RestController
@@ -23,5 +25,4 @@ internal class FindAddressControllerImpl(
 ) : FindAddressController {
     override fun findAddress(keyword: String): AddressResponse =
         findAddressUseCase.findAddressByKeyword(keyword).run { AddressResponse.from(this) }
-
 }

@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service
 import java.time.Instant
 
 interface UserUpdateUseCase {
-    fun update(
-        message: UserUpdateMessage
-    ): UserQuery
+    fun update(message: UserUpdateMessage): UserQuery
 
     data class UserUpdateMessage(
         val userId: UserId,
@@ -36,30 +34,38 @@ internal data class UserUpdateUseCaseImpl(
             id = found.id,
             name = message.name ?: found.name,
             authentication = found.authenticationCommand,
-            agreement = Agreement.create(
-                marketingConsent = getConsentInstant(
-                    consent = message.marketingConsent,
-                    exist = found.agreement.marketingConsent,
-                    now = now
+            agreement =
+                Agreement.create(
+                    marketingConsent =
+                        getConsentInstant(
+                            consent = message.marketingConsent,
+                            exist = found.agreement.marketingConsent,
+                            now = now,
+                        ),
+                    locationConsent =
+                        getConsentInstant(
+                            consent = message.locationConsent,
+                            exist = found.agreement.locationConsent,
+                            now = now,
+                        ),
+                    pushNotificationConsent =
+                        getConsentInstant(
+                            consent = message.pushNotificationConsent,
+                            exist = found.agreement.pushNotificationConsent,
+                            now = now,
+                        ),
                 ),
-                locationConsent = getConsentInstant(
-                    consent = message.locationConsent,
-                    exist = found.agreement.locationConsent,
-                    now = now
-                ),
-                pushNotificationConsent = getConsentInstant(
-                    consent = message.pushNotificationConsent,
-                    exist = found.agreement.pushNotificationConsent,
-                    now = now
-                )
-            ),
-            isRemoved = false
+            isRemoved = false,
         ).run { userCommandRepo.save(this) }
 
         return userQueryRepo.getById(message.userId)
     }
 
-    private fun getConsentInstant(consent: Boolean?, exist: Instant?, now: Instant): Instant? =
+    private fun getConsentInstant(
+        consent: Boolean?,
+        exist: Instant?,
+        now: Instant
+    ): Instant? =
         when (consent) {
             true -> now
             false -> null
