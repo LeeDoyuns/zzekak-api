@@ -2,24 +2,40 @@ package l1a.jjakkak.core.domain.user
 
 import l1a.jjakkak.core.domain.common.IdTypeUUID
 import java.time.Instant
-import java.util.UUID
+import java.util.*
 
-@JvmInline value class UserId(override val value: UUID): IdTypeUUID
+@JvmInline
+value class UserId(override val value: UUID) : IdTypeUUID
 
 interface UserCommand {
     val id: UserId
-    val authentication: AuthenticationCommand
+    val name: String
+    val authenticationCommand: AuthenticationCommand
+    val agreement: Agreement
     val isRemoved: Boolean
+
+    fun deleteUser(): UserCommand =
+        UserCommandImpl(
+            id = id,
+            name = name,
+            authenticationCommand = authenticationCommand,
+            agreement = agreement,
+            isRemoved = true
+        )
 
     companion object {
         fun create(
             id: UserId,
+            name: String,
             authentication: AuthenticationCommand,
+            agreement: Agreement,
             isRemoved: Boolean = false
         ): UserCommand =
             UserCommandImpl(
                 id = id,
-                authentication = authentication,
+                name = name,
+                authenticationCommand = authentication,
+                agreement = agreement,
                 isRemoved = isRemoved
             )
     }
@@ -27,39 +43,36 @@ interface UserCommand {
 
 internal data class UserCommandImpl(
     override val id: UserId,
-    override val authentication: AuthenticationCommand,
+    override val name: String,
+    override val authenticationCommand: AuthenticationCommand,
+    override val agreement: Agreement,
     override val isRemoved: Boolean
 ) : UserCommand
 
-interface UserQuery : UserCommand {
-    override val id: UserId
-    override val authentication: AuthenticationQuery
+interface UserQuery {
+    val id: UserId
+    val name: String
+    val authentication: AuthenticationQuery
+    val agreement: Agreement
     val createdAt: Instant
     val updatedAt: Instant
-
-    fun deleteUser(): UserQuery =
-
-        with(this) {
-             create(
-                 id = id,
-                 authentication = authentication,
-                 createdAt = createdAt,
-                 updatedAt = updatedAt,
-                 isRemoved = true
-            )
-        }
+    val isRemoved: Boolean
 
     companion object {
         fun create(
             id: UserId,
+            name: String,
             authentication: AuthenticationQuery,
+            agreement: Agreement,
             createdAt: Instant,
             updatedAt: Instant,
             isRemoved: Boolean = false
         ): UserQuery =
             UserQueryImpl(
                 id = id,
+                name = name,
                 authentication = authentication,
+                agreement = agreement,
                 createdAt = createdAt,
                 updatedAt = updatedAt,
                 isRemoved = isRemoved
@@ -69,8 +82,10 @@ interface UserQuery : UserCommand {
 
 internal data class UserQueryImpl(
     override val id: UserId,
+    override val name: String,
     override val authentication: AuthenticationQuery,
+    override val agreement: Agreement,
     override val createdAt: Instant,
     override val updatedAt: Instant,
-    override val isRemoved: Boolean
+    override val isRemoved: Boolean,
 ) : UserQuery
