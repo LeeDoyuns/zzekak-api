@@ -13,13 +13,12 @@ import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 import l1a.jjakkak.infra.domain.address.entity.AppointmentAddressEntity
 import l1a.jjakkak.infra.domain.appointment.entity.AppointmentEntity.Companion.TABLE_APPOINTMENT
-import l1a.jjakkak.infra.domain.user.entity.AuthenticationEntity
 import l1a.jjakkak.infra.domain.user.entity.UserEntity
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.Instant
-import java.util.UUID
+import java.util.*
 
 @Entity
 @Table(name = TABLE_APPOINTMENT)
@@ -52,11 +51,11 @@ class AppointmentEntity(
     @Column(name = COLUMN_DELETED)
     val deleted: Boolean
 ) {
-    @Column(name = AuthenticationEntity.COLUMN_CREATED_AT)
+    @Column(name = COLUMN_CREATED_AT)
     @CreatedDate
     lateinit var createdAt: Instant
 
-    @Column(name = AuthenticationEntity.COLUMN_UPDATED_AT)
+    @Column(name = COLUMN_UPDATED_AT)
     @LastModifiedDate
     lateinit var updatedAt: Instant
 
@@ -68,5 +67,7 @@ class AppointmentEntity(
         const val COLUMN_APPOINTMENT_ADDRESS_ID = "appointment_address_id"
         const val COLUMN_APPOINTMENT_TIME = "appointment_time"
         const val COLUMN_DELETED = "deleted"
+        const val COLUMN_CREATED_AT = "created_at"
+        const val COLUMN_UPDATED_AT = "updated_at"
     }
 }

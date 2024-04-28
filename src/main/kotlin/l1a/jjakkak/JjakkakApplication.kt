@@ -2,13 +2,10 @@ package l1a.jjakkak
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing
-import java.time.ZoneId
 import java.time.ZoneOffset.UTC
-import java.util.TimeZone
+import java.util.*
 
 @SpringBootApplication
-@EnableJpaAuditing
 class JjakkakApplication
 
 fun main(args: Array<String>) {

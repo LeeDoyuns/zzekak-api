@@ -1,7 +1,7 @@
 package l1a.jjakkak.infra.domain.appointment.repository
 
-import l1a.jjakkak.core.domain.address.model.AppointmentAddressId
 import l1a.jjakkak.core.domain.address.model.AppointmentAddress
+import l1a.jjakkak.core.domain.address.model.AppointmentAddressId
 import l1a.jjakkak.core.domain.appointment.model.AppointmentCommand
 import l1a.jjakkak.core.domain.appointment.model.AppointmentId
 import l1a.jjakkak.core.domain.appointment.model.AppointmentQuery
@@ -12,8 +12,6 @@ import l1a.jjakkak.infra.domain.appointment.dao.AppointmentEntityDao
 import l1a.jjakkak.infra.domain.appointment.entity.AppointmentEntity
 import l1a.jjakkak.infra.domain.user.dao.UserEntityDao
 import l1a.jjakkak.infra.domain.user.entity.UserEntity
-import l1a.jjakkak.infra.domain.user.helper.deserialize.UserDeserialize
-import l1a.jjakkak.infra.domain.user.helper.serialize.UserSerialize
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 
@@ -21,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional
 internal class AppointmentRepositoryImpl(
     val dao: AppointmentEntityDao,
     val userDao: UserEntityDao
-) : AppointmentRepository, UserSerialize, UserDeserialize {
+) : AppointmentRepository {
     @Transactional
     override fun save(appointmentCommand: AppointmentCommand): AppointmentQuery {
         val existed = dao.findById(appointmentCommand.id)
@@ -72,7 +70,7 @@ internal class AppointmentRepositoryImpl(
             name = name,
             address = appointmentAddress.toDomain(),
             appointmentTime = appointmentTime,
-            participants = participants.map { it.userId },
+            participants = participants.map { UserId(it.userId) },
             createdAt = createdAt,
             updatedAt = updatedAt,
             deleted = deleted

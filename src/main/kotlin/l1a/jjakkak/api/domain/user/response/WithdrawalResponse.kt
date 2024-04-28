@@ -1,9 +1,10 @@
 package l1a.jjakkak.api.domain.user.response
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import l1a.jjakkak.core.domain.user.Token
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import l1a.jjakkak.core.domain.user.WithdrawalResult
 
+@JsonSerialize
 internal class WithdrawalResponse (
     @JsonProperty("result")
     val quitResult: Char,

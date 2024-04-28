@@ -2,6 +2,7 @@ package l1a.jjakkak.core.domain.user
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import com.fasterxml.jackson.annotation.JsonValue
 import com.fasterxml.jackson.module.kotlin.readValue
 import l1a.jjakkak.core.domain.user.repository.AuthRepository
 import l1a.jjakkak.core.util.ObjectMapper
@@ -12,7 +13,7 @@ import java.security.interfaces.RSAPublicKey
 import java.security.spec.RSAPublicKeySpec
 import java.util.*
 
-enum class AuthenticationType(val code: String) {
+enum class AuthenticationType(@JsonValue val code: String) {
     KAKAO(code = "ka") {
         override fun decode(token: String): AuthToken {
             val (header, payload, sig) =

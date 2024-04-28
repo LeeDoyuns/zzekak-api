@@ -19,17 +19,13 @@ import org.springframework.web.bind.annotation.RestController
 internal interface UserWithdrawalController {
     @PutMapping(ApiUrl.USER_WITHDRAWAL)
     fun userWithdrawal(@RequestHeader headers: HttpHeaders): WithdrawalResponse
-
-
-
 }
 @RestController
 internal class UserWithdrawalControllerImpl (
     val useCase: WithdrawalUseCase
 ): UserWithdrawalController  {
-
-    override fun userWithdrawal(h: HttpHeaders): WithdrawalResponse {
-        var token = h["Authorization"].toString().replace("Bearer ", "")
+    override fun userWithdrawal(headers: HttpHeaders): WithdrawalResponse {
+        val token = headers["Authorization"].toString().replace("Bearer ", "")
         return  useCase.withdrawal(UserWithdrawalRequest(token).toMessage()).run { WithdrawalResponse.from(this) }
     }
 }

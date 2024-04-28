@@ -7,7 +7,7 @@ import l1a.jjakkak.core.domain.user.AuthenticationType
 import l1a.jjakkak.core.domain.user.message.JoinOrLoginMessage
 
 @JsonDeserialize
-data class JoinOrLoginRequest(
+internal data class JoinOrLoginRequest(
     @JsonProperty("token")
     val token: String,
     @JsonProperty("authenticationType")
