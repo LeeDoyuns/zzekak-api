@@ -4,43 +4,28 @@ package l1a.jjakkak.core.domain.address.model
  * 좌표 검색을 위한 모델
  */
 interface AdditionalAddressInfo {
-    /** 행정 구역 코드 */
-    val administrativeCode: String
+    val jibunAddress: String        //지번주소
 
-    /** 도로명 코드 */
-    val roadNameCode: String
+    val mountainYn: String          //산 여부
 
-    /** 지하 여부 */
-    val undergroundIndicator: String
-
-    /** 건물 본번 */
-    val buildingMainNumber: String
-
-    /** 건물 부번 */
-    val buildingSubNumber: String
+    val hCode: String               //행정동코드
 
     companion object {
         fun create(
-            administrativeCode: String,
-            roadNameCode: String,
-            undergroundIndicator: String,
-            buildingMainNumber: String,
-            buildingSubNumber: String
+            jibunAddress: String,
+            mountainYn: String,
+            hCode: String,
         ): AdditionalAddressInfo =
             AdditionalAddressInfoImpl(
-                administrativeCode = administrativeCode,
-                roadNameCode = roadNameCode,
-                undergroundIndicator = undergroundIndicator,
-                buildingMainNumber = buildingMainNumber,
-                buildingSubNumber = buildingSubNumber,
+                jibunAddress = jibunAddress,
+                mountainYn = mountainYn,
+                hCode = hCode,
             )
     }
 }
 
 internal data class AdditionalAddressInfoImpl(
-    override val administrativeCode: String,
-    override val roadNameCode: String,
-    override val undergroundIndicator: String,
-    override val buildingMainNumber: String,
-    override val buildingSubNumber: String
+    override val jibunAddress: String,
+    override val mountainYn: String,
+    override val hCode: String
 ) : AdditionalAddressInfo

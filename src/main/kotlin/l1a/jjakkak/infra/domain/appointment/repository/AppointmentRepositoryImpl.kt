@@ -60,8 +60,8 @@ internal class AppointmentRepositoryImpl(
             postalCode = address.postalCode,
             jibunAddress = address.jibunAddress,
             roadAddress = address.roadAddress,
-            x = coordinate.x,
-            y = coordinate.y,
+            x = address.x,
+            y = address.y,
         )
 
     private fun AppointmentEntity.toDomain() =
@@ -87,5 +87,7 @@ internal class AppointmentRepositoryImpl(
             roadAddress = roadAddress,
             x = x,
             y = y,
+            undergroundYn = "N",
+            buildingName = ""
         )
 }

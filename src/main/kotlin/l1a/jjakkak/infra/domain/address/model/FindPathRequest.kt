@@ -7,17 +7,19 @@ import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.json.jsonObject
 
 @Serializable
-internal data class AddressRequest(
-    val query: String,
-    val analyze_type: String,
-    val page: Int,
-    val size: Int
-) {
-    constructor(keyword: String) : this(
-        query = keyword,
-        analyze_type = "exact",      //정확히 입력한 주소에 대해서만 탐색.비슷한 주소는 탐색하지 않음.
-        page = 1,
-        size = 30
+internal data class FindPathRequest (
+    val origin: String,
+    val destination: String,
+    val mode: String,
+    val transitMode: String,
+    val key: String
+){
+    constructor(origin: String, destination: String, key: String) : this(
+        origin = origin,
+        destination = destination,
+        mode = "transit",
+        key = key,
+        transitMode = ""
     )
 
     fun returnToJSON(): JsonObject {

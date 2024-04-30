@@ -8,5 +8,5 @@ import org.springframework.stereotype.Service
 class FindAddressUseCase(
     private val addressRepository: AddressRepository
 ) {
-    fun findAddressByKeyword(keyword: String): List<SearchedAddress> = addressRepository.findAddressByKeyword(keyword)
+    fun findAddressByKeyword(keyword: String): SearchedAddress = addressRepository.findAddressByKeyword(keyword)
 }

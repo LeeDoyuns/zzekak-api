@@ -30,8 +30,9 @@ lia:
     social-login-kakao-public-key-url: "https://kauth.kakao.com/.well-known/jwks.json"
     social-login-apple-public-key-url: "https://appleid.apple.com/auth/keys"
   api-key:
-    addr: ${ZZEKAK_ADDR_KEY}
-    coord: ${ZZEKAK_COORD_KEY}
+  #  addr: ${ZZEKAK_ADDR_KEY}
+  #  coord: ${ZZEKAK_COORD_KEY}
+    google-api-key: ${GOOGLE_API_KEY}
 
 springdoc:
   api-docs:
