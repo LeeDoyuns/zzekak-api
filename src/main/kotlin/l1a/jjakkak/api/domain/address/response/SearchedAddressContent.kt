@@ -6,38 +6,26 @@ import l1a.jjakkak.core.domain.address.model.SearchedAddress
 internal data class SearchedAddressContent(
     @JsonProperty("roadAddress")
     val roadAddress: String,
-
     @JsonProperty("jibunAddress")
     val jibunAddress: String,
-
     @JsonProperty("buildingName")
     val buildingName: String,
-
     @JsonProperty("mountainYn")
     val mountainYn: String,
-
     @JsonProperty("undergroundYn")
     val undergroundYn: String,
-
     @JsonProperty("hCode")
     val hCode: String,
-
     @JsonProperty("x")
     val x: String,
-
     @JsonProperty("y")
     val y: String,
-
     @JsonProperty("cityOrProvince")
     val cityOrProvince: String,
-
     @JsonProperty("postalCode")
     val postalCode: String,
-
     @JsonProperty("districtOrCity")
     val districtOrCity: String
-
-
 ) {
     companion object {
         fun from(src: SearchedAddress): SearchedAddressContent =
@@ -53,9 +41,8 @@ internal data class SearchedAddressContent(
                     y = y,
                     cityOrProvince = cityOrProvince,
                     postalCode = postalCode,
-                    districtOrCity = districtOrCity
+                    districtOrCity = districtOrCity,
                 )
             }
     }
-
 }

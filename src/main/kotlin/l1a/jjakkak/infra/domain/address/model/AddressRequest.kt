@@ -15,9 +15,9 @@ internal data class AddressRequest(
 ) {
     constructor(keyword: String) : this(
         query = keyword,
-        analyze_type = "exact",      //정확히 입력한 주소에 대해서만 탐색.비슷한 주소는 탐색하지 않음.
+        analyze_type = "exact",         // 정확히 입력한 주소에 대해서만 탐색.비슷한 주소는 탐색하지 않음.
         page = 1,
-        size = 30
+        size = 30,
     )
 
     fun returnToJSON(): JsonObject {

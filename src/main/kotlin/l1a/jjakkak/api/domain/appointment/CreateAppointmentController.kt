@@ -54,7 +54,7 @@ internal class CreateAppointmentControllerImpl(
                                 y = address.y,
                                 undergroundYn = address.undergroundYn,
                                 buildingName = address.buildingName,
-                                jibunAddress = address.jibunAddress
+                                jibunAddress = address.jibunAddress,
                             ),
                         appointmentTime = appointmentTime.toInstant(),
                         participants = participants.map { UserId(it) },

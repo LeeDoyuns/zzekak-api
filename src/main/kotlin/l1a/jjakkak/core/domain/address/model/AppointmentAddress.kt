@@ -35,7 +35,7 @@ interface AppointmentAddress {
                         zoneNo = postalCode,
                         region1DepthName = cityOrProvince,
                         region2DepthName = districtOrCity,
-                        jibunAddress = jibunAddress
+                        jibunAddress = jibunAddress,
                     )
             )
     }

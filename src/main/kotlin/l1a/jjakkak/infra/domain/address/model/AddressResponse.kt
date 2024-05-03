@@ -9,13 +9,13 @@ internal data class AddressResponse(
 
 internal data class Documents(
     @JsonProperty("address")
-    val address: Address,           //지번주소
+    val address: Address,           // 지번주소
     @JsonProperty("address_name")
     val addressName: String,
     @JsonProperty("address_type")
     val addressType: String,
     @JsonProperty("road_address")
-    val roadAddress: RoadAddress,   //도로명주소
+    val roadAddress: RoadAddress, // 도로명주소
     val x: String,
     val y: String
 )
@@ -71,7 +71,6 @@ internal data class RoadAddress (
     @JsonProperty("zone_no")
     val zoneNo: String
 )
-
 
 data class AddressObject(
     override val roadAddress: String,

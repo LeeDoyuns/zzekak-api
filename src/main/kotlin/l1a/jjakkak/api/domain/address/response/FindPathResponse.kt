@@ -1,10 +1,14 @@
 package l1a.jjakkak.api.domain.address.response
 
-import l1a.jjakkak.infra.domain.address.model.PathFindResponse
+import l1a.jjakkak.core.domain.address.model.SearchedPathResponse
 
-class FindPathResponse {
+class FindPathResponse(
+    val content: SearchedPathResponse
+) {
     companion object {
-        fun from(src: PathFindResponse): FindPathResponse =
-            FindPathResponse()
+        fun from(src: SearchedPathResponse): FindPathResponse =
+            FindPathResponse(
+                content = src,
+            )
     }
 }

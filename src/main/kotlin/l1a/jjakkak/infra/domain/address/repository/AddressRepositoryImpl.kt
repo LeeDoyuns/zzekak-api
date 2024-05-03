@@ -1,6 +1,5 @@
 package l1a.jjakkak.infra.domain.address.repository
 
-import l1a.jjakkak.core.domain.address.model.AdditionalAddressInfo
 import l1a.jjakkak.core.domain.address.model.Address
 import l1a.jjakkak.core.domain.address.model.SearchedAddress
 import l1a.jjakkak.core.domain.address.repository.AddressRepository

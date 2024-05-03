@@ -1,61 +1,55 @@
 package l1a.jjakkak.api.domain.address
 
-import l1a.jjakkak.api.domain.address.response.AddressResponse
-import l1a.jjakkak.core.domain.address.model.SearchedAddress
 import l1a.jjakkak.core.domain.address.usecase.FindAddressUseCase
-import l1a.jjakkak.infra.domain.address.model.AddressObject
+import l1a.jjakkak.core.domain.address.usecase.PathFindingUseCase
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.mock.http.server.reactive.MockServerHttpResponse
 import org.springframework.security.test.context.support.WithMockUser
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
-import java.net.URLEncoder
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 @SpringBootTest
-//@Transactional
 @WithMockUser("user1")
 @AutoConfigureMockMvc
-class AddressTest(
-) {
-
-    @Autowired
-    private lateinit var mockMvc: MockMvc
-
+class AddressTest {
     @Autowired
     private lateinit var addrController: FindAddressController
 
     @Autowired
     private lateinit var useCase: FindAddressUseCase
 
+    @Autowired
+    private lateinit var pathUsecase: PathFindingUseCase
 
     @DisplayName("주소찾기 api 조회")
     @Test
-    fun addressTest(){
-        //given
+    fun addressTest() {
+        // given
         val addr: String = "테헤란로 501"
 
-        //when
+        // when
         var addrResult = useCase.findAddressByKeyword(addr)
 
-        //then
+        // then
         println(addrResult)
     }
 
     @DisplayName("길찾기 api 조회")
     @Test
-    fun findPath(){
-        //given
+    fun findPath() {
+        // given
+        val startX = "126.84788713801"
+        val startY = "37.5311052079473"
+        val endX = "127.056821251348"
+        val endY = "37.5073809450356"
+        val appointmentTime = ZonedDateTime.of(2024, 5, 5, 14, 10, 30, 0, ZoneId.of("Asia/Seoul"))
+        // when
+        var result = pathUsecase.findPath(startX, startY, endX, endY, appointmentTime)
 
-        //when
-
-        //than
-
+        // then
+        println(result)
     }
 }

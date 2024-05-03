@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController
 )
 internal interface FindAddressController {
     @GetMapping(ApiUrl.ADDRESS_SEARCH)
-    fun findAddress( @RequestParam keyword: String ): AddressResponse?
+    fun findAddress(
+        @RequestParam keyword: String
+    ): AddressResponse?
 }
 
 @RestController

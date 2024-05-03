@@ -88,6 +88,6 @@ internal class AppointmentRepositoryImpl(
             x = x,
             y = y,
             undergroundYn = "N",
-            buildingName = ""
+            buildingName = "",
         )
 }
