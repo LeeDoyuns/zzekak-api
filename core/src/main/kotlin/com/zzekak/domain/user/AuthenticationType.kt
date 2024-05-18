@@ -46,7 +46,7 @@ enum class AuthenticationType(
             val verifier =
                 JWT.require(alg)
                     .withIssuer("https://kauth.kakao.com")
-                    .withAudience(appKey)
+//                    .withAudience(appKey)
                     .build()
 
             verifier.verify(token)
