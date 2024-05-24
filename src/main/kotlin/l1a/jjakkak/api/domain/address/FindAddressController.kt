@@ -16,7 +16,7 @@ internal interface FindAddressController {
     @GetMapping(ApiUrl.ADDRESS_SEARCH)
     fun findAddress(
         @RequestParam keyword: String
-    ): AddressResponse
+    ): AddressResponse?
 }
 
 @RestController

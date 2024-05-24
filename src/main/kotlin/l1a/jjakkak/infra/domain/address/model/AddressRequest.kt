@@ -8,24 +8,16 @@ import kotlinx.serialization.json.jsonObject
 
 @Serializable
 internal data class AddressRequest(
-    val keyword: String,
-    val confmKey: String,
-    val currentPage: Int,
-    val countPerPage: Int,
-    val resultType: String,
-    val hstryYn: String,
-    val firstSort: String,
-    val addInfoYn: String
+    val query: String,
+    val analyze_type: String,
+    val page: Int,
+    val size: Int
 ) {
-    constructor(keyword: String, confmKey: String) : this(
-        keyword,
-        confmKey,
-        1,
-        20,
-        "json",
-        "N",
-        "none",
-        "N",
+    constructor(keyword: String) : this(
+        query = keyword,
+        analyze_type = "exact",         // 정확히 입력한 주소에 대해서만 탐색.비슷한 주소는 탐색하지 않음.
+        page = 1,
+        size = 30,
     )
 
     fun returnToJSON(): JsonObject {

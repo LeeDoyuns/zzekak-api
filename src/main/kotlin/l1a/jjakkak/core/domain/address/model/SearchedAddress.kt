@@ -3,41 +3,46 @@ package l1a.jjakkak.core.domain.address.model
 interface SearchedAddress : Address, AdditionalAddressInfo {
     companion object {
         fun create(
-            administrativeCode: String,
-            roadNameCode: String,
-            undergroundIndicator: String,
-            buildingMainNumber: String,
-            buildingSubNumber: String,
-            cityOrProvince: String,
-            districtOrCity: String,
-            postalCode: String,
+            roadAddress: String,
+            buildingName: String,
             jibunAddress: String,
-            roadAddress: String
+            mountainYn: String,
+            undergroundYn: String,
+            hCode: String,
+            x: String,
+            y: String,
+            postalCode: String,
+            cityOrProvince: String,
+            districtOrCity: String
         ): SearchedAddress =
             SearchedAddressImpl(
-                administrativeCode = administrativeCode,
-                roadNameCode = roadNameCode,
-                undergroundIndicator = undergroundIndicator,
-                buildingMainNumber = buildingMainNumber,
-                buildingSubNumber = buildingSubNumber,
+                roadAddress = roadAddress,
+                buildingName = buildingName,
+                jibunAddress = jibunAddress,
+                mountainYn = mountainYn,
+                undergroundYn = undergroundYn,
+                hCode = hCode,
+                x = x,
+                y = y,
+                postalCode = postalCode,
                 cityOrProvince = cityOrProvince,
                 districtOrCity = districtOrCity,
-                postalCode = postalCode,
-                jibunAddress = jibunAddress,
-                roadAddress = roadAddress,
             )
+        /*검색되는 값이 없는경우 빈 object로 내려줌.*/
+        fun createEmptyObject(): SearchedAddress = SearchedAddressImpl("", "", "", "", "", "", "", "", "", "", "")
     }
 }
 
 internal data class SearchedAddressImpl(
-    override val administrativeCode: String,
-    override val roadNameCode: String,
-    override val undergroundIndicator: String,
-    override val buildingMainNumber: String,
-    override val buildingSubNumber: String,
+    override val roadAddress: String,
+    override val jibunAddress: String,
+    override val buildingName: String,
+    override val mountainYn: String,
+    override val undergroundYn: String,
+    override val hCode: String,
+    override val x: String,
+    override val y: String,
+    override val postalCode: String,
     override val cityOrProvince: String,
     override val districtOrCity: String,
-    override val postalCode: String,
-    override val jibunAddress: String,
-    override val roadAddress: String
 ) : SearchedAddress

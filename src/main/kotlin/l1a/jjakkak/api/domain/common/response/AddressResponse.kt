@@ -32,8 +32,8 @@ data class AddressResponse(
                     postalCode = address.postalCode,
                     jibunAddress = address.jibunAddress,
                     roadAddress = address.roadAddress,
-                    x = coordinate.x,
-                    y = coordinate.y,
+                    x = address.x,
+                    y = address.y,
                 )
             }
     }

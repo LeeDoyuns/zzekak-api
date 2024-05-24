@@ -9,7 +9,6 @@ value class AppointmentAddressId(override val value: UUID) : IdTypeUUID
 interface AppointmentAddress {
     val id: AppointmentAddressId
     val address: Address
-    val coordinate: Coordinate
 
     companion object {
         fun create(
@@ -17,28 +16,32 @@ interface AppointmentAddress {
             cityOrProvince: String,
             districtOrCity: String,
             postalCode: String,
-            jibunAddress: String,
             roadAddress: String,
             x: String,
-            y: String
+            y: String,
+            buildingName: String,
+            undergroundYn: String,
+            jibunAddress: String
         ): AppointmentAddress =
             AppointmentAddressImpl(
                 id = id,
                 address =
                     Address.create(
-                        cityOrProvince = cityOrProvince,
-                        districtOrCity = districtOrCity,
-                        postalCode = postalCode,
+                        address = roadAddress,
+                        buildingName = buildingName,
+                        undergroundYn = undergroundYn,
+                        x = x,
+                        y = y,
+                        zoneNo = postalCode,
+                        region1DepthName = cityOrProvince,
+                        region2DepthName = districtOrCity,
                         jibunAddress = jibunAddress,
-                        roadAddress = roadAddress,
-                    ),
-                coordinate = Coordinate.create(x = x, y = y),
+                    )
             )
     }
 }
 
 internal data class AppointmentAddressImpl(
     override val id: AppointmentAddressId,
-    override val address: Address,
-    override val coordinate: Coordinate,
+    override val address: Address
 ) : AppointmentAddress

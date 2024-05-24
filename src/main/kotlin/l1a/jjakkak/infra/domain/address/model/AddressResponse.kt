@@ -1,65 +1,87 @@
 package l1a.jjakkak.infra.domain.address.model
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import l1a.jjakkak.core.domain.address.model.SearchedAddress
 
 internal data class AddressResponse(
-    val results: Results?
+    val documents: List<Documents>?
 )
 
-internal data class Results(
-    val common: Common?,
-    val juso: List<Juso>?
+internal data class Documents(
+    @JsonProperty("address")
+    val address: Address,           // 지번주소
+    @JsonProperty("address_name")
+    val addressName: String,
+    @JsonProperty("address_type")
+    val addressType: String,
+    @JsonProperty("road_address")
+    val roadAddress: RoadAddress, // 도로명주소
+    val x: String,
+    val y: String
 )
 
-internal data class Common(
-    val errorMessage: String?,
-    val countPerPage: String?,
-    val totalCount: String?,
-    val errorCode: String?,
-    val currentPage: String?,
+//지번주소 object
+internal data class Address (
+    @JsonProperty("address_name")
+    val addressName: String,
+    @JsonProperty("b_code")
+    val bCode: String,
+    @JsonProperty("h_code")
+    val hCode: String,
+    @JsonProperty("main_address_no")
+    val mainAddressNo: String,
+    @JsonProperty("mountain_yn")
+    val mountainYn: String,
+    @JsonProperty("region_1depth_name")
+    val region1DepthName: String,
+    @JsonProperty("region_2depth_name")
+    val region2DepthName: String,
+    @JsonProperty("region_3depth_h_name")
+    val region3DepthHName: String,
+    @JsonProperty("region_3depth_name")
+    val region3DepthName: String,
+    @JsonProperty("sub_address_no")
+    val subAddressNo: String,
+    val x: String,
+    val y: String
 )
 
-// 해당 클래스는 좌표검색과 공용으로 사용하므로 기본값을 빈값으로 한다.
-internal data class Juso(
-    val detBdNmList: String = "",
-    val engAddr: String = "",
-    val rn: String = "",
-    val emdNm: String = "",
-    val zipNo: String = "",
-    val roadAddrPart2: String = "",
-    val emdNo: String = "",
-    val sggNm: String = "",
-    val jibunAddr: String = "",
-    val siNm: String = "",
-    val roadAddrPart1: String = "",
-    val bdNm: String = "",
-    val admCd: String = "",
-    val udrtYn: String = "",
-    val lnbrMnnm: String = "",
-    val roadAddr: String = "",
-    val lnbrSlno: String = "",
-    val buldMnnm: String = "",
-    val bdKdcd: String = "",
-    val liNm: String = "",
-    val rnMgtSn: String = "",
-    val mtYn: String = "",
-    val bdMgtSn: String = "",
-    val buldSlno: String = "",
-    // x좌표
-    val entX: String = "0.0",
-    // y좌표
-    val entY: String = "0.0",
+//도로명주소 object
+internal data class RoadAddress (
+    @JsonProperty("address_name")
+    val addressName: String,
+    @JsonProperty("building_name")
+    val buildingName: String,
+    @JsonProperty("main_building_no")
+    val mainBuildingNo: String,
+    @JsonProperty("region_1depth_name")
+    val region1DepthName: String,
+    @JsonProperty("region_2depth_name")
+    val region2DepthName: String,
+    @JsonProperty("region_3depth_name")
+    val region3DepthName: String,
+    @JsonProperty("road_name")
+    val roadName: String,
+    @JsonProperty("sub_building_no")
+    val subBuildingNo: String,
+    @JsonProperty("underground_yn")
+    val undergroundYn: String,
+    val x: String,
+    val y: String,
+    @JsonProperty("zone_no")
+    val zoneNo: String
 )
 
 data class AddressObject(
-    override val cityOrProvince: String,
-    override val districtOrCity: String,
-    override val postalCode: String,
-    override val jibunAddress: String,
     override val roadAddress: String,
-    override val administrativeCode: String,
-    override val roadNameCode: String,
-    override val undergroundIndicator: String,
-    override val buildingMainNumber: String,
-    override val buildingSubNumber: String,
+    override val jibunAddress: String,
+    override val buildingName: String,
+    override val mountainYn: String,
+    override val undergroundYn: String,
+    override val hCode: String,
+    override val x: String,
+    override val y: String,
+    override val postalCode: String,
+    override val cityOrProvince: String,
+    override val districtOrCity: String
 ) : SearchedAddress
