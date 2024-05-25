@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.zzekak.core.domain.appointment.model.AppointmentId
 import com.zzekak.core.domain.appointment.model.AppointmentQuery
 import com.zzekak.core.domain.user.UserId
-import com.zzekak.domain.address.response.AddressResponse
+import com.zzekak.domain.common.response.AddressResponse
 import java.time.Instant
 
 internal data class CreateAppointmentResponse(

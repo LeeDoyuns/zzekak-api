@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.zzekak.core.domain.appointment.model.AppointmentId
 import com.zzekak.core.domain.appointment.model.AppointmentQuery
 import com.zzekak.core.domain.user.UserId
-import com.zzekak.domain.address.response.AddressResponse
+import com.zzekak.domain.common.response.AddressResponse
 import java.time.Instant
 
-data class FindAppointmentResponse(
+internal data class FindAppointmentResponse(
     @JsonProperty("content")
     val content: List<FindAppointmentContent>
 ) {
@@ -28,7 +28,7 @@ data class FindAppointmentResponse(
     }
 }
 
-data class FindAppointmentContent(
+internal data class FindAppointmentContent(
     @JsonProperty("id")
     val id: AppointmentId,
     @JsonProperty("appointmentName")
@@ -39,9 +39,4 @@ data class FindAppointmentContent(
     val appointmentTime: Instant,
     @JsonProperty("participants")
     val participants: List<UserId>,
-)
-
-data class ParticipantContent(
-    @JsonProperty("name")
-    val name: String
 )

@@ -14,6 +14,5 @@ class AddressRepositoryImpl(
      * 카카오 로컬 에서 제공하는 API 의 결과 값을 파싱, [Address] 에 담아서 반환한다.
      */
     override fun findAddressByKeyword(keyword: String): SearchedAddress =
-        ConnectionModule("KakaoAK ${kakaaoAppKey}").searchAddr(keyword)
-
+        ConnectionModule("KakaoAK $kakaaoAppKey").searchAddr(keyword)
 }

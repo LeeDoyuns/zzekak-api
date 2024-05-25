@@ -39,6 +39,14 @@ class SwaggerConfig {
             .build()
 
     @Bean
+    fun findPathApi(): GroupedOpenApi =
+        GroupedOpenApi.builder()
+            .group("FindPath API")
+            .pathsToMatch("${ApiUrl.PATH}/**")
+            .addOpenApiCustomizer(openApiCustomizer())
+            .build()
+
+    @Bean
     fun customOpenAPI(): OpenAPI =
         OpenAPI()
             .info(

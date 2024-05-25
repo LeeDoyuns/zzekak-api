@@ -1,9 +1,6 @@
 package com.zzekak.domain.address.model
 
-import com.zzekak.core.domain.address.model.AdditionalAddressInfo
-
 interface SearchedAddress : Address, AdditionalAddressInfo {
-
     companion object {
         fun create(
             roadAddress: String,
@@ -29,10 +26,11 @@ interface SearchedAddress : Address, AdditionalAddressInfo {
                 y = y,
                 postalCode = postalCode,
                 cityOrProvince = cityOrProvince,
-                districtOrCity = districtOrCity
+                districtOrCity = districtOrCity,
             )
-        /*검색되는 값이 없는경우 빈 object로 내려줌.*/
-        fun createEmptyObject(): SearchedAddress = SearchedAddressImpl("","","","","","","","","","","")
+
+        // 검색되는 값이 없는경우 빈 object로 내려줌.
+        fun createEmptyObject(): SearchedAddress = SearchedAddressImpl("", "", "", "", "", "", "", "", "", "", "")
     }
 }
 
