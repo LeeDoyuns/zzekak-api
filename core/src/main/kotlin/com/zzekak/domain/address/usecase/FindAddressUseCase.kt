@@ -1,6 +1,6 @@
 package com.zzekak.domain.address.usecase
 
-import com.zzekak.core.domain.address.model.SearchedAddress
+import com.zzekak.domain.address.model.SearchedAddress
 import com.zzekak.domain.address.repository.AddressRepository
 import org.springframework.stereotype.Service
 
@@ -8,5 +8,5 @@ import org.springframework.stereotype.Service
 class FindAddressUseCase(
     private val addressRepository: AddressRepository
 ) {
-    fun findAddressByKeyword(keyword: String): List<SearchedAddress> = addressRepository.findAddressByKeyword(keyword)
+    fun findAddressByKeyword(keyword: String): SearchedAddress = addressRepository.findAddressByKeyword(keyword)
 }

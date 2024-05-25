@@ -34,7 +34,7 @@ subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "org.jetbrains.kotlin.plugin.spring")
     apply(plugin = "io.spring.dependency-management")
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+//    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")

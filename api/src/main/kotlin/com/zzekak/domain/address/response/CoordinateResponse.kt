@@ -1,4 +1,4 @@
-package l1a.com.zzekak.domain.address.response
+package com.zzekak.domain.address.response
 
 import com.zzekak.core.domain.address.model.Coordinate
 

@@ -1,13 +1,13 @@
 package com.zzekak.infra.domain.appointment.repository
 
-import com.zzekak.core.domain.address.model.AppointmentAddress
-import com.zzekak.core.domain.address.model.AppointmentAddressId
 import com.zzekak.core.domain.appointment.model.AppointmentCommand
 import com.zzekak.core.domain.appointment.model.AppointmentId
 import com.zzekak.core.domain.appointment.model.AppointmentQuery
 import com.zzekak.core.domain.appointment.repository.AppointmentRepository
 import com.zzekak.core.domain.user.UserId
 import com.zzekak.domain.address.entity.AppointmentAddressEntity
+import com.zzekak.domain.address.model.AppointmentAddress
+import com.zzekak.domain.address.model.AppointmentAddressId
 import com.zzekak.infra.domain.appointment.dao.AppointmentEntityDao
 import com.zzekak.infra.domain.appointment.entity.AppointmentEntity
 import com.zzekak.infra.domain.user.dao.UserEntityDao
@@ -60,8 +60,8 @@ internal class AppointmentRepositoryImpl(
             postalCode = address.postalCode,
             jibunAddress = address.jibunAddress,
             roadAddress = address.roadAddress,
-            x = coordinate.x,
-            y = coordinate.y,
+            x = address.x,
+            y = address.y,
         )
 
     private fun AppointmentEntity.toDomain() =
@@ -87,5 +87,7 @@ internal class AppointmentRepositoryImpl(
             roadAddress = roadAddress,
             x = x,
             y = y,
+            undergroundYn = "N",
+            buildingName = ""
         )
 }

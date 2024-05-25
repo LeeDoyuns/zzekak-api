@@ -1,12 +1,12 @@
 package com.zzekak.domain.appointment
 
 import com.zzekak.ApiUrl
-import com.zzekak.core.domain.address.model.AppointmentAddress
-import com.zzekak.core.domain.address.model.AppointmentAddressId
 import com.zzekak.core.domain.appointment.model.AppointmentCommand
 import com.zzekak.core.domain.appointment.model.AppointmentId
 import com.zzekak.core.domain.appointment.usecase.CreateAppointmentUseCase
 import com.zzekak.core.domain.user.UserId
+import com.zzekak.domain.address.model.AppointmentAddress
+import com.zzekak.domain.address.model.AppointmentAddressId
 import com.zzekak.domain.appointment.request.CreateAppointmentRequest
 import com.zzekak.domain.appointment.response.CreateAppointmentResponse
 import org.springframework.http.MediaType
@@ -50,10 +50,12 @@ internal class CreateAppointmentControllerImpl(
                                 cityOrProvince = address.cityOrProvince,
                                 districtOrCity = address.districtOrCity,
                                 postalCode = address.postalCode,
-                                jibunAddress = address.jibunAddress,
                                 roadAddress = address.roadAddress,
                                 x = address.x,
                                 y = address.y,
+                                undergroundYn = address.undergroundYn,
+                                buildingName = address.buildingName,
+                                jibunAddress = address.jibunAddress
                             ),
                         appointmentTime = appointmentTime.toInstant(),
                         participants = participants.map { UserId(it) },

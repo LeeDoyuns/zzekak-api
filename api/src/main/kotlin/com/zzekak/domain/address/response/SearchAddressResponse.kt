@@ -1,6 +1,6 @@
 package com.zzekak.domain.address.response
 
-import com.zzekak.core.domain.address.model.SearchedAddress
+import com.zzekak.domain.address.model.SearchedAddress
 
 internal data class SearchAddressResponse(
     val content: List<SearchedAddressContent>
