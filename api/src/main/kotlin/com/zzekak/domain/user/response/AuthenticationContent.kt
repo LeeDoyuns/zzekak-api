@@ -2,8 +2,8 @@ package com.zzekak.domain.user.response
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.zzekak.core.domain.user.AuthenticationId
-import com.zzekak.core.domain.user.AuthenticationQuery
+import com.zzekak.domain.user.AuthenticationId
+import com.zzekak.domain.user.AuthenticationQuery
 import com.zzekak.domain.user.AuthenticationType
 import java.time.Instant
 

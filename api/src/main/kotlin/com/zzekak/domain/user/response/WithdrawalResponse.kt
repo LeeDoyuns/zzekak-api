@@ -2,7 +2,7 @@ package com.zzekak.domain.user.response
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.zzekak.core.domain.user.WithdrawalResult
+import com.zzekak.domain.user.WithdrawalResult
 
 @JsonSerialize
 internal class WithdrawalResponse(

@@ -1,10 +1,10 @@
 package com.zzekak.domain.appointment.response
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.zzekak.core.domain.appointment.model.AppointmentId
-import com.zzekak.core.domain.appointment.model.AppointmentQuery
-import com.zzekak.core.domain.user.UserId
+import com.zzekak.domain.appointment.model.AppointmentId
+import com.zzekak.domain.appointment.model.AppointmentQuery
 import com.zzekak.domain.common.response.AddressResponse
+import com.zzekak.domain.user.UserId
 import java.time.Instant
 
 internal data class FindAppointmentResponse(
