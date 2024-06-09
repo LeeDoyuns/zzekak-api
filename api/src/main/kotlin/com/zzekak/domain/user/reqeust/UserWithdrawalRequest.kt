@@ -1,7 +1,6 @@
 package com.zzekak.domain.user.reqeust
 
 import com.auth0.jwt.JWT
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.zzekak.domain.user.UserId
 import com.zzekak.domain.user.message.WithdrawalMessage
@@ -11,7 +10,6 @@ import java.util.UUID
 
 @JsonDeserialize
 data class UserWithdrawalRequest(
-    @JsonProperty("token")
     val token: String,
 ) {
     fun toMessage(): WithdrawalMessage =
