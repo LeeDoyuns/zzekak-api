@@ -9,5 +9,6 @@ import org.springframework.stereotype.Service
 class CreateAppointmentUseCase(
     val appointmentRepo: AppointmentRepository
 ) {
-    fun createAppointment(appointment: AppointmentCommand): AppointmentQuery = appointmentRepo.save(appointment)
+    fun createAppointment(appointment: AppointmentCommand): AppointmentQuery =
+        appointmentRepo.save(appointment, AppointmentQuery::class)
 }

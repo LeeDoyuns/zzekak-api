@@ -1,4 +1,4 @@
-package com.zzekak.infra.domain.user.converter
+package com.zzekak.domain.user.converter
 
 import com.zzekak.domain.user.AuthenticationType
 import jakarta.persistence.AttributeConverter

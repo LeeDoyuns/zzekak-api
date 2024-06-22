@@ -24,7 +24,7 @@ import java.util.UUID
 internal interface CreateAppointmentController {
     @PostMapping(ApiUrl.CREATE_APPOINTMENT)
     fun createAppointment(
-        @AuthenticationPrincipal id: UUID,
+        @AuthenticationPrincipal userId: UUID,
         @RequestBody request: CreateAppointmentRequest
     ): CreateAppointmentResponse
 }
@@ -34,7 +34,7 @@ internal class CreateAppointmentControllerImpl(
     val createAppointmentUseCase: CreateAppointmentUseCase
 ) : CreateAppointmentController {
     override fun createAppointment(
-        id: UUID,
+        userId: UUID,
         request: CreateAppointmentRequest
     ): CreateAppointmentResponse =
         createAppointmentUseCase.createAppointment(
@@ -42,7 +42,7 @@ internal class CreateAppointmentControllerImpl(
                 with(request) {
                     AppointmentCommand(
                         id = AppointmentId(UUID.randomUUID()),
-                        ownerId = UserId(id),
+                        ownerId = UserId(userId),
                         name = request.name,
                         address =
                             AppointmentAddress.create(

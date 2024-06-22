@@ -17,6 +17,7 @@ object ApiUrl {
     // Appointment
     const val APPOINTMENT = "/appointment"
     const val CREATE_APPOINTMENT = "$APPOINTMENT/create"
+    const val JOIN_APPOINTMENT = "$APPOINTMENT/{${PathVariable.APPOINTMENT}}/join"
 
     // address
     const val ADDRESS = "/address"

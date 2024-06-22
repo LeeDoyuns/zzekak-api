@@ -1,4 +1,4 @@
-package com.zzekak.infra.domain.user.dao
+package com.zzekak.domain.user.dao
 
 import com.zzekak.domain.user.entity.AuthenticationEntity
 import org.springframework.data.jpa.repository.JpaRepository

@@ -1,11 +1,10 @@
-package com.zzekak.infra.domain.user.entity
+package com.zzekak.domain.user.entity
 
+import com.zzekak.domain.common.entity.AuditableBase
 import com.zzekak.domain.user.Agreement
 import com.zzekak.domain.user.UserCommand
 import com.zzekak.domain.user.UserId
-import com.zzekak.domain.user.entity.AuthenticationEntity
-import com.zzekak.infra.domain.common.entity.AuditableBase
-import com.zzekak.infra.domain.user.entity.UserEntity.Companion.TABLE_USER
+import com.zzekak.domain.user.entity.UserEntity.Companion.TABLE_USER
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

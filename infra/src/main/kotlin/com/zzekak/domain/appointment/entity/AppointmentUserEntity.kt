@@ -1,7 +1,8 @@
-package com.zzekak.infra.domain.appointment.entity
+package com.zzekak.domain.appointment.entity
 
-import com.zzekak.infra.domain.appointment.entity.AppointmentUserEntity.Companion.TABLE_USER_ADDRESS
-import com.zzekak.infra.domain.user.entity.UserEntity
+import com.zzekak.domain.appointment.entity.AppointmentUserEntity.Companion.TABLE_USER_ADDRESS
+import com.zzekak.domain.common.entity.AuditableBase
+import com.zzekak.domain.user.entity.UserEntity
 import jakarta.persistence.Embeddable
 import jakarta.persistence.EmbeddedId
 import jakarta.persistence.Entity
@@ -26,7 +27,7 @@ internal class AppointmentUserEntity(
     @MapsId("userId")
     @JoinColumn(name = UserEntity.COLUMN_USER_ID)
     val user: UserEntity
-) {
+) : AuditableBase() {
     companion object {
         const val TABLE_USER_ADDRESS = "appointment_user"
     }

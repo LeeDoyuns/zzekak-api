@@ -1,12 +1,11 @@
 package com.zzekak.domain.user.entity
 
+import com.zzekak.domain.common.entity.AuditableBase
 import com.zzekak.domain.user.AuthenticationCommand
 import com.zzekak.domain.user.AuthenticationId
 import com.zzekak.domain.user.AuthenticationType
+import com.zzekak.domain.user.converter.AuthenticationTypeConverter
 import com.zzekak.domain.user.entity.AuthenticationEntity.Companion.TABLE_AUTHENTICATION
-import com.zzekak.infra.domain.common.entity.AuditableBase
-import com.zzekak.infra.domain.user.converter.AuthenticationTypeConverter
-import com.zzekak.infra.domain.user.entity.UserEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity

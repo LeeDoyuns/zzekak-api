@@ -1,7 +1,6 @@
-package com.zzekak.infra.domain.user.repository
+package com.zzekak.domain.user.repository
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.zzekak.domain.user.repository.AuthRepository
 import com.zzekak.util.ObjectMapper
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Value

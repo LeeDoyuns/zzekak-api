@@ -17,7 +17,7 @@ import java.util.UUID
 internal interface FindAppointmentController {
     @GetMapping(ApiUrl.APPOINTMENT)
     fun findAll(
-        @AuthenticationPrincipal id: UUID
+        @AuthenticationPrincipal userId: UUID
     ): FindAppointmentResponse
 }
 
@@ -25,6 +25,6 @@ internal interface FindAppointmentController {
 internal class FindAppointmentControllerImpl(
     private val findAppointmentUseCase: FindAppointmentUseCase
 ) : FindAppointmentController {
-    override fun findAll(id: UUID): FindAppointmentResponse =
-        findAppointmentUseCase.findAll(UserId(id)).run { FindAppointmentResponse.from(this) }
+    override fun findAll(userId: UUID): FindAppointmentResponse =
+        findAppointmentUseCase.findAll(UserId(userId)).run { FindAppointmentResponse.from(this) }
 }

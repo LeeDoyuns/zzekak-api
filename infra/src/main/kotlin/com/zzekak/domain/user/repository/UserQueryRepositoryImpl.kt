@@ -1,14 +1,13 @@
-package com.zzekak.infra.domain.user.repository
+package com.zzekak.domain.user.repository
 
 import com.zzekak.domain.user.Agreement
 import com.zzekak.domain.user.AuthenticationId
 import com.zzekak.domain.user.AuthenticationQuery
 import com.zzekak.domain.user.UserId
 import com.zzekak.domain.user.UserQuery
+import com.zzekak.domain.user.dao.UserEntityDao
 import com.zzekak.domain.user.entity.AuthenticationEntity
-import com.zzekak.domain.user.repository.UserQueryRepository
-import com.zzekak.infra.domain.user.dao.UserEntityDao
-import com.zzekak.infra.domain.user.entity.UserEntity
+import com.zzekak.domain.user.entity.UserEntity
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 import java.text.MessageFormat

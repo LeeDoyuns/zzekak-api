@@ -9,5 +9,6 @@ import org.springframework.stereotype.Service
 class FindAppointmentUseCase(
     val appointmentRepository: AppointmentRepository
 ) {
-    fun findAll(userId: UserId): List<AppointmentQuery> = appointmentRepository.findAllByUserId(userId)
+    fun findAll(userId: UserId): List<AppointmentQuery> =
+        appointmentRepository.findAllByUserId(userId, AppointmentQuery::class)
 }

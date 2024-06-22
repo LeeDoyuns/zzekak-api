@@ -1,19 +1,20 @@
-package com.zzekak.infra.domain.appointment.repository
+package com.zzekak.domain.appointment.repository
 
 import com.zzekak.domain.address.entity.AppointmentAddressEntity
 import com.zzekak.domain.address.model.AppointmentAddress
 import com.zzekak.domain.address.model.AppointmentAddressId
+import com.zzekak.domain.appointment.dao.AppointmentEntityDao
+import com.zzekak.domain.appointment.entity.AppointmentEntity
+import com.zzekak.domain.appointment.model.Appointment
 import com.zzekak.domain.appointment.model.AppointmentCommand
 import com.zzekak.domain.appointment.model.AppointmentId
 import com.zzekak.domain.appointment.model.AppointmentQuery
-import com.zzekak.domain.appointment.repository.AppointmentRepository
 import com.zzekak.domain.user.UserId
-import com.zzekak.infra.domain.appointment.dao.AppointmentEntityDao
-import com.zzekak.infra.domain.appointment.entity.AppointmentEntity
-import com.zzekak.infra.domain.user.dao.UserEntityDao
-import com.zzekak.infra.domain.user.entity.UserEntity
+import com.zzekak.domain.user.dao.UserEntityDao
+import com.zzekak.domain.user.entity.UserEntity
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
+import kotlin.reflect.KClass
 
 @Repository
 internal class AppointmentRepositoryImpl(
@@ -21,7 +22,10 @@ internal class AppointmentRepositoryImpl(
     val userDao: UserEntityDao
 ) : AppointmentRepository {
     @Transactional
-    override fun save(appointmentCommand: AppointmentCommand): AppointmentQuery {
+    override fun <T : Appointment> save(
+        appointmentCommand: AppointmentCommand,
+        returnType: KClass<out T>
+    ): T {
         val existed = dao.findById(appointmentCommand.id)
         val existedUsers = userDao.findAllByIds(appointmentCommand.participants)
 
@@ -33,23 +37,39 @@ internal class AppointmentRepositoryImpl(
                 ),
             )
 
-        return saved.toDomain()
+        return saved.toDomain(returnType)
     }
 
-    override fun findAllByUserId(userId: UserId): List<AppointmentQuery> =
-        dao.findByUserId(userId).map { it.toDomain() }
+    @Transactional
+    override fun <T : Appointment> findAllByUserId(
+        userId: UserId,
+        returnType: KClass<out T>
+    ): List<T> = dao.findByUserId(userId).map { it.toDomain(returnType) }
+
+    @Transactional
+    override fun <T : Appointment> findBy(
+        id: AppointmentId,
+        returnType: KClass<out T>
+    ): T? = dao.findById(id)?.toDomain(returnType)
 
     private fun AppointmentCommand.toEntity(
         existed: AppointmentEntity?,
         participants: Collection<UserEntity>
-    ) = AppointmentEntity(
+    ) = existed?.apply {
+        this.ownerId = this@toEntity.ownerId.value
+        this.name = this@toEntity.name
+        this.appointmentAddress = address.toEntity(existed.appointmentAddress)
+        this.appointmentTime = this@toEntity.appointmentTime
+        this.participants = participants.toMutableSet()
+        this.deleted = this@toEntity.deleted
+    } ?: AppointmentEntity(
         appointmentId = id.value,
         ownerId = ownerId.value,
         name = name,
-        appointmentAddress = address.toEntity(existed?.appointmentAddress),
+        appointmentAddress = address.toEntity(null),
         appointmentTime = appointmentTime,
         participants = participants.toSet(),
-        deleted = false,
+        deleted = deleted,
     )
 
     private fun AppointmentAddress.toEntity(existed: AppointmentAddressEntity?) =
@@ -64,18 +84,35 @@ internal class AppointmentRepositoryImpl(
             y = address.y,
         )
 
-    private fun AppointmentEntity.toDomain() =
-        AppointmentQuery(
-            id = AppointmentId(appointmentId),
-            ownerId = UserId(ownerId),
-            name = name,
-            address = appointmentAddress.toDomain(),
-            appointmentTime = appointmentTime,
-            participants = participants.map { UserId(it.userId) },
-            createdAt = createdAt,
-            updatedAt = updatedAt,
-            deleted = deleted,
-        )
+    @Suppress("UNCHECKED_CAST")
+    private fun <T : Appointment> AppointmentEntity.toDomain(clazz: KClass<out T>): T =
+        when (clazz) {
+            AppointmentCommand::class ->
+                AppointmentCommand(
+                    id = AppointmentId(appointmentId),
+                    ownerId = UserId(ownerId),
+                    name = name,
+                    address = appointmentAddress.toDomain(),
+                    appointmentTime = appointmentTime,
+                    participants = participants.map { UserId(it.userId) },
+                    deleted = deleted,
+                ) as T
+
+            AppointmentQuery::class ->
+                AppointmentQuery(
+                    id = AppointmentId(appointmentId),
+                    ownerId = UserId(ownerId),
+                    name = name,
+                    address = appointmentAddress.toDomain(),
+                    appointmentTime = appointmentTime,
+                    participants = participants.map { UserId(it.userId) },
+                    createdAt = createdAt,
+                    updatedAt = updatedAt,
+                    deleted = deleted,
+                ) as T
+
+            else -> throw IllegalArgumentException("Unsupported type: ${clazz.qualifiedName}")
+        }
 
     private fun AppointmentAddressEntity.toDomain() =
         AppointmentAddress.create(

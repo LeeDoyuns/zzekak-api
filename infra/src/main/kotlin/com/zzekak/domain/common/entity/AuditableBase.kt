@@ -1,4 +1,4 @@
-package com.zzekak.infra.domain.common.entity
+package com.zzekak.domain.common.entity
 
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners
