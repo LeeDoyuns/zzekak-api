@@ -3,6 +3,7 @@ package com.zzekak.infra.domain.user.entity
 import com.zzekak.domain.user.Agreement
 import com.zzekak.domain.user.UserCommand
 import com.zzekak.domain.user.UserId
+import com.zzekak.domain.user.entity.AuthenticationEntity
 import com.zzekak.infra.domain.common.entity.AuditableBase
 import com.zzekak.infra.domain.user.entity.UserEntity.Companion.TABLE_USER
 import jakarta.persistence.CascadeType
@@ -37,12 +38,12 @@ class UserEntity(
     var isRemoved: Boolean
 ) : AuditableBase() {
     fun toDomain(): UserCommand =
-        UserCommand.create(
+        UserCommand(
             id = UserId(userId),
             name = name,
-            authentication = authenticationEntity.toDomain(),
+            authenticationCommand = authenticationEntity.toDomain(),
             agreement =
-                Agreement.create(
+                Agreement(
                     marketingConsent = marketingConsent,
                     locationConsent = locationConsent,
                     pushNotificationConsent = pushNotificationConsent,

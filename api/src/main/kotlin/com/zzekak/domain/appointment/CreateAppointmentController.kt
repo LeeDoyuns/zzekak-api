@@ -40,7 +40,7 @@ internal class CreateAppointmentControllerImpl(
         createAppointmentUseCase.createAppointment(
             appointment =
                 with(request) {
-                    AppointmentCommand.create(
+                    AppointmentCommand(
                         id = AppointmentId(UUID.randomUUID()),
                         ownerId = UserId(id),
                         name = request.name,

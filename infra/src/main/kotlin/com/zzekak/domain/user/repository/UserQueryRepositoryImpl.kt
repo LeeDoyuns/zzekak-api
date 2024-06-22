@@ -5,9 +5,9 @@ import com.zzekak.domain.user.AuthenticationId
 import com.zzekak.domain.user.AuthenticationQuery
 import com.zzekak.domain.user.UserId
 import com.zzekak.domain.user.UserQuery
+import com.zzekak.domain.user.entity.AuthenticationEntity
 import com.zzekak.domain.user.repository.UserQueryRepository
 import com.zzekak.infra.domain.user.dao.UserEntityDao
-import com.zzekak.infra.domain.user.entity.AuthenticationEntity
 import com.zzekak.infra.domain.user.entity.UserEntity
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
@@ -42,12 +42,12 @@ internal class UserQueryRepositoryImpl(
     }
 
     private fun UserEntity.toDomainOfQuery(): UserQuery =
-        UserQuery.create(
+        UserQuery(
             id = UserId(userId),
             name = name,
             authentication = authenticationEntity.toDomainQuery(),
             agreement =
-                Agreement.create(
+                Agreement(
                     marketingConsent = marketingConsent,
                     locationConsent = locationConsent,
                     pushNotificationConsent = pushNotificationConsent,
@@ -58,7 +58,7 @@ internal class UserQueryRepositoryImpl(
         )
 
     private fun AuthenticationEntity.toDomainQuery(): AuthenticationQuery =
-        AuthenticationQuery.create(
+        AuthenticationQuery(
             id = AuthenticationId(authenticationId),
             type = type,
             createdAt = createdAt,

@@ -1,6 +1,6 @@
 package com.zzekak.domain.address.response
 
-import l1a.jjakkak.core.domain.address.model.SearchedPathResponse
+import com.zzekak.domain.address.model.SearchedPathResponse
 
 class FindPathResponse(
     val content: SearchedPathResponse

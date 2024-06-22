@@ -6,12 +6,12 @@ import com.zzekak.domain.address.model.Documents
 import com.zzekak.domain.address.model.PathFindRequest
 import com.zzekak.domain.address.model.PathFindResponse
 import com.zzekak.domain.address.model.SearchedAddress
+import com.zzekak.domain.address.model.SearchedPathResponse
 import com.zzekak.exception.ExceptionEnum
 import com.zzekak.exception.ZzekakException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonObject
-import l1a.jjakkak.core.domain.address.model.SearchedPathResponse
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.util.DefaultUriBuilderFactory
@@ -78,7 +78,7 @@ internal class ConnectionModule(val confmKey: String) {
         val pf = PathFindResponse.to(response)
 
         val result =
-            SearchedPathResponse.create(
+            SearchedPathResponse(
                 departureTime = pf.departureTime.text,
                 arrivalTime = pf.arrivalTime.text,
                 duration = pf.duration.text,

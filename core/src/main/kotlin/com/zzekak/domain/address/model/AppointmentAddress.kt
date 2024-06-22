@@ -6,10 +6,10 @@ import java.util.UUID
 @JvmInline
 value class AppointmentAddressId(override val value: UUID) : IdTypeUUID
 
-interface AppointmentAddress {
-    val id: AppointmentAddressId
+data class AppointmentAddress(
+    val id: AppointmentAddressId,
     val address: Address
-
+) {
     companion object {
         fun create(
             id: AppointmentAddressId,
@@ -23,7 +23,7 @@ interface AppointmentAddress {
             undergroundYn: String,
             jibunAddress: String
         ): AppointmentAddress =
-            AppointmentAddressImpl(
+            AppointmentAddress(
                 id = id,
                 address =
                     Address.create(
@@ -40,8 +40,3 @@ interface AppointmentAddress {
             )
     }
 }
-
-internal data class AppointmentAddressImpl(
-    override val id: AppointmentAddressId,
-    override val address: Address
-) : AppointmentAddress

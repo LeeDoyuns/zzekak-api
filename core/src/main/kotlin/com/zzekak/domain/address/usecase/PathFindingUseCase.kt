@@ -1,7 +1,7 @@
 package com.zzekak.domain.address.usecase
 
+import com.zzekak.domain.address.model.SearchedPathResponse
 import com.zzekak.domain.address.repository.PathFindingRepository
-import l1a.jjakkak.core.domain.address.model.SearchedPathResponse
 import org.springframework.stereotype.Service
 import java.time.ZonedDateTime
 

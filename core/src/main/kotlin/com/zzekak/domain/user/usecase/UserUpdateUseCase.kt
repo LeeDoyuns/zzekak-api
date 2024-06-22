@@ -30,12 +30,12 @@ internal data class UserUpdateUseCaseImpl(
         val found = userCommandRepo.getById(message.userId)
         val now = Instant.now()
 
-        UserCommand.create(
+        UserCommand(
             id = found.id,
             name = message.name ?: found.name,
-            authentication = found.authenticationCommand,
+            authenticationCommand = found.authenticationCommand,
             agreement =
-                Agreement.create(
+                Agreement(
                     marketingConsent =
                         getConsentInstant(
                             consent = message.marketingConsent,

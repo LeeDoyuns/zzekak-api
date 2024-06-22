@@ -75,15 +75,16 @@ internal class JoinOrLoginUseCaseImpl(
     private fun createUser(
         authToken: AuthToken,
         type: AuthenticationType
-    ) = UserCommand.create(
+    ) = UserCommand(
         id = UserId(UUID.randomUUID()),
         name = "",
-        authentication =
-            AuthenticationCommand.create(
+        authenticationCommand =
+            AuthenticationCommand(
                 id = AuthenticationId(authToken.payload.sub),
                 type = type,
             ),
         agreement = Agreement.EMPTY,
+        isRemoved = false,
     )
 
     private fun AuthenticationType.getRSAPublicKeyInfo(authToken: AuthToken): AuthRepository.RSAPublicKeyInfo =

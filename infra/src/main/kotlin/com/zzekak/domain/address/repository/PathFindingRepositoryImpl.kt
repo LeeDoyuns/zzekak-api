@@ -1,6 +1,6 @@
 package com.zzekak.domain.address.repository
 
-import l1a.jjakkak.core.domain.address.model.SearchedPathResponse
+import com.zzekak.domain.address.model.SearchedPathResponse
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Repository
 import java.time.ZonedDateTime

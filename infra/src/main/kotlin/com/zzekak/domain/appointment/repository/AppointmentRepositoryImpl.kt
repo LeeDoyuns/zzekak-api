@@ -65,7 +65,7 @@ internal class AppointmentRepositoryImpl(
         )
 
     private fun AppointmentEntity.toDomain() =
-        AppointmentQuery.create(
+        AppointmentQuery(
             id = AppointmentId(appointmentId),
             ownerId = UserId(ownerId),
             name = name,
