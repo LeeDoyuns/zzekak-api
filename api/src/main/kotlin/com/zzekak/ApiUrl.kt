@@ -13,6 +13,7 @@ object ApiUrl {
     const val USER_WITHDRAWAL = "$USER/withdrawal"
     const val USER_TOKEN_REFRESH = "$USER/token/refresh"
     const val USER_UPDATE = "$USER/update"
+    const val USER_UPDATE_PROFILE_IMAGE = "$USER_UPDATE/profile_image"
 
     // Appointment
     const val APPOINTMENT = "/appointment"
@@ -27,7 +28,7 @@ object ApiUrl {
     const val PATH = "/path"
     const val PATH_FINDING = "$PATH/find"
 
-    //mission
+    // mission
     const val MISSION = "/mission"
     const val SEARCH_APPOINT_MISSION = "$MISSION/search/{${PathVariable.APPOINTMENT}}"
     const val UPDATE_MISSION = "$MISSION/update"

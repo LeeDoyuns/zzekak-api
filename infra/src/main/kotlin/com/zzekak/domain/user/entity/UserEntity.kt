@@ -24,6 +24,8 @@ class UserEntity(
     val userId: UUID,
     @Column(name = COLUMN_NAME)
     var name: String,
+    @Column(name = "profile_image_url")
+    var profileImageUrl: String,
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "userEntity", cascade = [CascadeType.ALL], orphanRemoval = true)
     @JoinColumn(name = AuthenticationEntity.COLUMN_USER_ID)
     val authenticationEntity: AuthenticationEntity,
@@ -35,13 +37,14 @@ class UserEntity(
     var pushNotificationConsent: Instant?,
     @Column(name = COLUMN_IS_REMOVED)
     var isRemoved: Boolean,
-    @Column(name = COlUMN_FCM_KEY)
+    @Column(name = COLUMN_FCM_KEY)
     var fcmKey: String
 ) : AuditableBase() {
     fun toDomain(): UserCommand =
         UserCommand(
             id = UserId(userId),
             name = name,
+            profileImageUrl = profileImageUrl,
             authenticationCommand = authenticationEntity.toDomain(),
             agreement =
                 Agreement(
@@ -50,7 +53,7 @@ class UserEntity(
                     pushNotificationConsent = pushNotificationConsent,
                 ),
             isRemoved = isRemoved,
-            fcmKey = fcmKey
+            fcmKey = fcmKey,
         )
 
     companion object {
@@ -61,18 +64,19 @@ class UserEntity(
         private const val COLUMN_LOCATION_CONSENT = "location_consent"
         private const val COLUMN_PUSH_NOTIFICATION_CONSENT = "push_notification_consent"
         private const val COLUMN_IS_REMOVED = "is_removed"
-        private const val COlUMN_FCM_KEY = "fcm_key"
+        private const val COLUMN_FCM_KEY = "fcm_key"
 
         fun from(src: UserCommand): UserEntity =
             UserEntity(
                 userId = src.id.value,
                 name = src.name,
+                profileImageUrl = src.profileImageUrl,
                 authenticationEntity = AuthenticationEntity.from(src.authenticationCommand),
                 marketingConsent = src.agreement.marketingConsent,
                 locationConsent = src.agreement.locationConsent,
                 pushNotificationConsent = src.agreement.pushNotificationConsent,
                 isRemoved = src.isRemoved,
-                fcmKey = src.fcmKey
+                fcmKey = src.fcmKey,
             ).apply {
                 authenticationEntity.userEntity = this
             }

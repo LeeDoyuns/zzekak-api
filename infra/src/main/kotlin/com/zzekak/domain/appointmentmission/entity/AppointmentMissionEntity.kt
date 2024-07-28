@@ -5,7 +5,16 @@ import com.zzekak.domain.appointmentmission.entity.AppointmentMissionEntity.Comp
 import com.zzekak.domain.mission.MissionCode
 import com.zzekak.domain.mission.model.UpdateMissionStatusCommand
 import com.zzekak.domain.user.entity.UserEntity
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Embeddable
+import jakarta.persistence.EmbeddedId
+import jakarta.persistence.Entity
+import jakarta.persistence.EntityListeners
+import jakarta.persistence.FetchType
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
+import jakarta.persistence.MapsId
+import jakarta.persistence.Table
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.io.Serializable
 import java.time.Instant
@@ -15,27 +24,20 @@ import java.util.UUID
 @Table(name = TABLE_APPOINTMENT_MISSION)
 @EntityListeners(AuditingEntityListener::class)
 class AppointmentMissionEntity(
-
     @EmbeddedId
     val id: AppointmentMissionId,
-
-
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("appointmentId")
     @JoinColumn(name = AppointmentEntity.COLUMN_APPOINTMENT_ID)
     val appointment: AppointmentEntity?,
-
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("userId")
     @JoinColumn(name = UserEntity.COLUMN_USER_ID)
     val user: UserEntity,
-
     @Column(name = COLUMN_MISSION_ONE)
     val missionStepOneCompleteAt: Instant?,
-
     @Column(name = COLUMN_MISSION_TWO)
     val missionStepTwoCompleteAt: Instant?,
-
 ) {
     companion object {
         const val TABLE_APPOINTMENT_MISSION = "appointment_mission"
@@ -44,25 +46,24 @@ class AppointmentMissionEntity(
     }
 
     fun updateEntity(missionCmd: UpdateMissionStatusCommand): AppointmentMissionEntity {
-        if(missionCmd.missionStep.equals(MissionCode.MISSION_STEP_ONE)){
+        if (missionCmd.missionStep.equals(MissionCode.MISSION_STEP_ONE)) {
             return AppointmentMissionEntity(
                 id = this.id,
                 appointment = this.appointment,
                 user = this.user,
                 missionStepOneCompleteAt = missionCmd.completeDateTime.toInstant(),
-                missionStepTwoCompleteAt = null
+                missionStepTwoCompleteAt = null,
             )
-        }else {
+        } else {
             return AppointmentMissionEntity(
                 id = this.id,
                 appointment = this.appointment,
                 user = this.user,
                 missionStepOneCompleteAt = this.missionStepOneCompleteAt,
-                missionStepTwoCompleteAt = missionCmd.completeDateTime.toInstant()
+                missionStepTwoCompleteAt = missionCmd.completeDateTime.toInstant(),
             )
         }
     }
-
 }
 
 @Embeddable
@@ -70,4 +71,4 @@ class AppointmentMissionId(
     var appointmentId: UUID,
     var userId: UUID?,
     var apntMisnId: Long?,
-): Serializable
+) : Serializable

@@ -63,6 +63,7 @@ class SwaggerConfig {
             .pathsToMatch("${ApiUrl.MISSION}/**")
             .addOpenApiCustomizer(openApiCustomizer())
             .build()
+
     @Bean
     fun customOpenAPI(): OpenAPI =
         OpenAPI()

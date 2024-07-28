@@ -85,7 +85,7 @@ internal class ConnectionModule(val confmKey: String) {
                 duration = pf.duration.text,
                 startAddress = pf.startAddress,
                 endAddress = pf.endAddress,
-                distance = pf.distance.text
+                distance = pf.distance.text,
             )
         return result
     }

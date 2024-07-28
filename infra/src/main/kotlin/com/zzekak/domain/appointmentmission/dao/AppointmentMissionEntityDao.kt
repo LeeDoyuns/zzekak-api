@@ -12,42 +12,42 @@ import java.util.UUID
 
 interface AppointmentMissionEntityDao {
     fun save(apms: AppointmentMissionEntity): AppointmentMissionEntity
-     fun <T> findByAppointmentId(value: UUID): List<T>
-     fun findById(appointmentMissionId: AppointmentMissionId): AppointmentMissionEntity
-}
 
+    fun <T> findByAppointmentId(value: UUID): List<T>
+
+    fun findById(appointmentMissionId: AppointmentMissionId): AppointmentMissionEntity
+}
 
 @Repository
-interface AppointmentMissionDaoJpaRepository: JpaRepository<AppointmentMissionEntity, AppointmentMissionId> {
+interface AppointmentMissionDaoJpaRepository : JpaRepository<AppointmentMissionEntity, AppointmentMissionId> {
     override fun findById(appointmentMissionId: AppointmentMissionId): Optional<AppointmentMissionEntity>
-
 }
-
 
 @Repository
 class AppointmentMissionEntityDaoImpl(
     val repo: AppointmentMissionDaoJpaRepository,
     @PersistenceContext
     val entityManager: EntityManager
-): AppointmentMissionEntityDao {
-
+) : AppointmentMissionEntityDao {
     override fun save(apms: AppointmentMissionEntity): AppointmentMissionEntity = repo.save(apms)
+
     override fun <T> findByAppointmentId(appointmentId: UUID): List<T> {
-        val jpql = """
-              SELECT new com.zzekak.domain.mission.model.AppointmentUserMissionQuery(
-                    am.id.apntMisnId,
-                    am.appointment.appointmentId,
-                    u.name,
-                    case when am.missionStepOneCompleteAt is null then 'N' else 'Y' end,
-                    case when am.missionStepTwoCompleteAt is null then 'N' else 'Y' end,
-                    am.missionStepOneCompleteAt,
-                    am.missionStepTwoCompleteAt,
-                    u.userId
-                )
-               FROM AppointmentMissionEntity am
-               JOIN UserEntity u ON am.user = u
-               WHERE am.appointment.appointmentId = :appointmentId
-        """.trimIndent()
+        val jpql =
+            """
+            SELECT new com.zzekak.domain.mission.model.AppointmentUserMissionQuery(
+                  am.id.apntMisnId,
+                  am.appointment.appointmentId,
+                  u.name,
+                  case when am.missionStepOneCompleteAt is null then 'N' else 'Y' end,
+                  case when am.missionStepTwoCompleteAt is null then 'N' else 'Y' end,
+                  am.missionStepOneCompleteAt,
+                  am.missionStepTwoCompleteAt,
+                  u.userId
+              )
+             FROM AppointmentMissionEntity am
+             JOIN UserEntity u ON am.user = u
+             WHERE am.appointment.appointmentId = :appointmentId
+            """.trimIndent()
 
         val query = entityManager.createQuery(jpql, AppointmentUserMissionQuery::class.java)
         query.setParameter("appointmentId", appointmentId)
@@ -55,6 +55,8 @@ class AppointmentMissionEntityDaoImpl(
         return query.resultList as List<T>
     }
 
-    override fun findById(appointmentMissionId: AppointmentMissionId): AppointmentMissionEntity = repo.findById(appointmentMissionId).get()
-
+    override fun findById(appointmentMissionId: AppointmentMissionId): AppointmentMissionEntity =
+        repo.findById(
+            appointmentMissionId,
+        ).get()
 }

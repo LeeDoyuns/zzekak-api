@@ -21,6 +21,11 @@ dependencies {
     // mariadb
     implementation("org.mariadb.jdbc:mariadb-java-client:3.1.4")
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
+
+    // s3
+    implementation(platform("software.amazon.awssdk:bom:2.20.56"))
+    implementation("software.amazon.awssdk:s3")
+    implementation("software.amazon.awssdk:auth")
 }
 
 tasks.withType<org.springframework.boot.gradle.tasks.bundling.BootJar> {

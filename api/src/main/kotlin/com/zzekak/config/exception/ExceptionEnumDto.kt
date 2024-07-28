@@ -1,7 +1,6 @@
 package com.zzekak.config.exception
 
 import com.zzekak.exception.ExceptionEnum
-import io.swagger.v3.oas.annotations.media.Schema
 import org.springframework.http.HttpStatus
 
 enum class ExceptionEnumDto(

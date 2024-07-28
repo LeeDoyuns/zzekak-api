@@ -14,20 +14,20 @@ import kotlin.reflect.KClass
 internal class AppointmentMissionRepositoryImpl(
     val amDao: AppointmentMissionEntityDao,
 ) : AppointmentMissionRepository {
-
-    override fun <T : AppointmentMission> findAllByAppointmentId(appointmentId: AppointmentId, returnType: KClass<out T>): List<T> =
-        amDao.findByAppointmentId(appointmentId.value)
+    override fun <T : AppointmentMission> findAllByAppointmentId(
+        appointmentId: AppointmentId,
+        returnType: KClass<out T>
+    ): List<T> = amDao.findByAppointmentId(appointmentId.value)
 
     override fun updateMissionStatus(missionCmd: UpdateMissionStatusCommand) {
-        val mission: AppointmentMissionEntity = amDao.findById(
-            AppointmentMissionId(
-                appointmentId = missionCmd.appointmentId.value,
-                apntMisnId = missionCmd.appointmentMissionId,
-                userId = missionCmd.userId.value
+        val mission: AppointmentMissionEntity =
+            amDao.findById(
+                AppointmentMissionId(
+                    appointmentId = missionCmd.appointmentId.value,
+                    apntMisnId = missionCmd.appointmentMissionId,
+                    userId = missionCmd.userId.value,
+                ),
             )
-        )
         amDao.save(mission.updateEntity(missionCmd))
     }
-
 }
-

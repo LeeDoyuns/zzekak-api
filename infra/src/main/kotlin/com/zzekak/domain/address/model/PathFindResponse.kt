@@ -37,7 +37,7 @@ internal data class PathFindResponse(
                     Duration("", 0),
                     "",
                     "",
-                    Distance("", 0)
+                    Distance("", 0),
                 )
             }
             val legs: JsonArray = routes[0].jsonObject.get("legs") as JsonArray
@@ -58,7 +58,7 @@ internal data class PathFindResponse(
                 duration = duration,
                 endAddress = endAddress,
                 startAddress = startAddress,
-                distance = distance
+                distance = distance,
             )
         }
     }

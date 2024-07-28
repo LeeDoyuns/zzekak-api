@@ -12,35 +12,37 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-import java.util.*
-
+import java.util.UUID
 
 internal interface MissionProgressController {
-
-    @GetMapping("${ApiUrl.SEARCH_APPOINT_MISSION}")
+    @GetMapping(ApiUrl.SEARCH_APPOINT_MISSION)
     fun searchAppointmentMission(
         @PathVariable(com.zzekak.PathVariable.APPOINTMENT) appointmentId: UUID
     ): SearchedMissionResponse
 
-    @PutMapping("${ApiUrl.UPDATE_MISSION}")
+    @PutMapping(ApiUrl.UPDATE_MISSION)
     fun updateMissionStatus(
         @RequestBody body: UpdateMissionRequest
     ): SearchedMissionResponse
 }
+
 @RestController
 internal class MissionProgressControllerImpl(
     val appointmentMissionUseCase: AppointmentMissionUseCase
 ) : MissionProgressController {
-    override fun searchAppointmentMission(appointmentId: UUID): SearchedMissionResponse  =
-        appointmentMissionUseCase.searchAppointMissionStatus(AppointmentId(appointmentId)).run { SearchedMissionResponse.from(this) }
+    override fun searchAppointmentMission(appointmentId: UUID): SearchedMissionResponse =
+        appointmentMissionUseCase.searchAppointMissionStatus(AppointmentId(appointmentId)).run {
+            SearchedMissionResponse.from(this)
+        }
 
     override fun updateMissionStatus(body: UpdateMissionRequest): SearchedMissionResponse =
-        appointmentMissionUseCase.updateMissionStatus(UpdateMissionStatusCommand(
-            appointmentMissionId = body.appointmentMissionId,
-            appointmentId = AppointmentId(body.appointmentId),
-            userId = UserId(body.userId),
-            missionStep = body.missionStep,
-            completeDateTime = body.completeDateTime
-        )).run { SearchedMissionResponse.from(this) }
-
+        appointmentMissionUseCase.updateMissionStatus(
+            UpdateMissionStatusCommand(
+                appointmentMissionId = body.appointmentMissionId,
+                appointmentId = AppointmentId(body.appointmentId),
+                userId = UserId(body.userId),
+                missionStep = body.missionStep,
+                completeDateTime = body.completeDateTime,
+            ),
+        ).run { SearchedMissionResponse.from(this) }
 }

@@ -7,10 +7,16 @@ import com.zzekak.domain.user.UserQuery
 import com.zzekak.domain.user.repository.UserCommandRepository
 import com.zzekak.domain.user.repository.UserQueryRepository
 import org.springframework.stereotype.Service
+import org.springframework.web.multipart.MultipartFile
 import java.time.Instant
 
 interface UserUpdateUseCase {
     fun update(message: UserUpdateMessage): UserQuery
+
+    fun updateProfileImage(
+        userId: UserId,
+        profileImage: MultipartFile
+    ): String
 
     data class UserUpdateMessage(
         val userId: UserId,
@@ -35,6 +41,7 @@ internal data class UserUpdateUseCaseImpl(
             id = found.id,
             name = message.name ?: found.name,
             authenticationCommand = found.authenticationCommand,
+            profileImageUrl = found.profileImageUrl,
             agreement =
                 Agreement(
                     marketingConsent =
@@ -57,11 +64,16 @@ internal data class UserUpdateUseCaseImpl(
                         ),
                 ),
             isRemoved = false,
-            fcmKey = message.fcmKey?: found.fcmKey
+            fcmKey = message.fcmKey ?: found.fcmKey,
         ).run { userCommandRepo.save(this) }
 
         return userQueryRepo.getById(message.userId)
     }
+
+    override fun updateProfileImage(
+        userId: UserId,
+        profileImage: MultipartFile
+    ): String = userCommandRepo.saveProfileImage(userId, profileImage)
 
     private fun getConsentInstant(
         consent: Boolean?,

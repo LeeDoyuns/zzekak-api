@@ -44,6 +44,7 @@ internal class UserQueryRepositoryImpl(
         UserQuery(
             id = UserId(userId),
             name = name,
+            profileImageUrl = profileImageUrl,
             authentication = authenticationEntity.toDomainQuery(),
             agreement =
                 Agreement(

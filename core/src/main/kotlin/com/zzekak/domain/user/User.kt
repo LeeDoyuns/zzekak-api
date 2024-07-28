@@ -10,6 +10,7 @@ value class UserId(override val value: UUID) : IdTypeUUID
 data class UserCommand(
     val id: UserId,
     val name: String,
+    val profileImageUrl: String,
     val authenticationCommand: AuthenticationCommand,
     val agreement: Agreement,
     val isRemoved: Boolean,
@@ -21,6 +22,7 @@ data class UserCommand(
 data class UserQuery(
     val id: UserId,
     val name: String,
+    val profileImageUrl: String,
     val authentication: AuthenticationQuery,
     val agreement: Agreement,
     val createdAt: Instant,

@@ -5,16 +5,15 @@ import com.zzekak.domain.mission.model.AppointmentUserMissionQuery
 import com.zzekak.domain.user.UserId
 import java.time.Instant
 
-internal data class SearchedMissionResponse (
+internal data class SearchedMissionResponse(
     val missions: List<AppointmentUserMission>
-){
+) {
     companion object {
         fun from(src: Collection<AppointmentUserMissionQuery>): SearchedMissionResponse =
             SearchedMissionResponse(
-                missions = src.map(AppointmentUserMission::from)
+                missions = src.map(AppointmentUserMission::from),
             )
     }
-
 }
 
 internal data class AppointmentUserMission(
@@ -26,9 +25,8 @@ internal data class AppointmentUserMission(
     val missionStepOneCompleteTime: Instant?,
     val missionStepTwoComplateTime: Instant?,
     val userId: UserId
-
-){
-    companion object{
+) {
+    companion object {
         fun from(src: AppointmentUserMissionQuery): AppointmentUserMission =
             AppointmentUserMission(
                 appointmentMissionId = src.appointmentMissionId,
@@ -38,7 +36,7 @@ internal data class AppointmentUserMission(
                 missionStepTwoComplteYn = src.missionStepTwoComplteYn,
                 missionStepOneCompleteTime = src.missionStepOneCompleteTime,
                 missionStepTwoComplateTime = src.missionStepTwoComplateTime,
-                userId = src.userId
+                userId = src.userId,
             )
     }
 }

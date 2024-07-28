@@ -7,7 +7,7 @@ import java.time.ZonedDateTime
 
 @Repository
 class PathFindingRepositoryImpl(
-    @Value("\${lia.api-key.google-api-key}")
+    @Value("\${lia.external-api.google-api-key}")
     val googleApiKey: String,
 ) : PathFindingRepository {
     override fun findPath(

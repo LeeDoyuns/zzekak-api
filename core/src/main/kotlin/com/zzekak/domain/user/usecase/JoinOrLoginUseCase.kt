@@ -78,6 +78,7 @@ internal class JoinOrLoginUseCaseImpl(
     ) = UserCommand(
         id = UserId(UUID.randomUUID()),
         name = "",
+        profileImageUrl = "",
         authenticationCommand =
             AuthenticationCommand(
                 id = AuthenticationId(authToken.payload.sub),
@@ -85,7 +86,7 @@ internal class JoinOrLoginUseCaseImpl(
             ),
         agreement = Agreement.EMPTY,
         isRemoved = false,
-        fcmKey = ""
+        fcmKey = "",
     )
 
     private fun AuthenticationType.getRSAPublicKeyInfo(authToken: AuthToken): AuthRepository.RSAPublicKeyInfo =

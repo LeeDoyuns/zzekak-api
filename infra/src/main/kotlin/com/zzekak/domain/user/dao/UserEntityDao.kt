@@ -10,6 +10,8 @@ import java.util.UUID
 interface UserEntityDao {
     fun save(entity: UserEntity): UserEntity
 
+    fun getUserById(userId: UserId): UserEntity
+
     fun findUserByAuthenticationId(authenticationId: AuthenticationId): UserEntity?
 
     fun findUserByAuthenticationIdAndIsRemoved(
@@ -49,6 +51,8 @@ internal class UserEntityDaoImpl(
     val delegate: UserEntityJpaRepository
 ) : UserEntityDao {
     override fun save(entity: UserEntity): UserEntity = delegate.save(entity)
+
+    override fun getUserById(userId: UserId): UserEntity = delegate.getReferenceById(userId.value)
 
     override fun findUserByAuthenticationId(authenticationId: AuthenticationId): UserEntity? =
         delegate.findByAuthenticationEntity_AuthenticationId(authenticationId.value)
