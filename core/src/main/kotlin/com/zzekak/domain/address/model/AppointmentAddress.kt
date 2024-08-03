@@ -27,7 +27,7 @@ data class AppointmentAddress(
                 id = id,
                 address =
                     Address.create(
-                        address = roadAddress,
+                        roadAddress = roadAddress,
                         buildingName = buildingName,
                         undergroundYn = undergroundYn,
                         x = x,

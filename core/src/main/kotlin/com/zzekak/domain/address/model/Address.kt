@@ -14,7 +14,7 @@ interface Address {
 
     companion object {
         fun create(
-            address: String,
+            roadAddress: String,
             buildingName: String,
             undergroundYn: String,
             x: String,
@@ -25,7 +25,7 @@ interface Address {
             jibunAddress: String
         ): Address =
             AddressImpl(
-                roadAddress = address,
+                roadAddress = roadAddress,
                 buildingName = buildingName,
                 undergroundYn = undergroundYn,
                 x = x,

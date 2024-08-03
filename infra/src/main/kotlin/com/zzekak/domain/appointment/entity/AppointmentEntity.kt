@@ -3,15 +3,13 @@ package com.zzekak.domain.appointment.entity
 import com.zzekak.domain.address.entity.AppointmentAddressEntity
 import com.zzekak.domain.appointment.entity.AppointmentEntity.Companion.TABLE_APPOINTMENT
 import com.zzekak.domain.common.entity.AuditableBase
-import com.zzekak.domain.user.entity.UserEntity
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
-import jakarta.persistence.JoinTable
-import jakarta.persistence.ManyToMany
+import jakarta.persistence.OneToMany
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 import java.time.Instant
@@ -31,13 +29,8 @@ class AppointmentEntity(
     var appointmentAddress: AppointmentAddressEntity,
     @Column(name = COLUMN_APPOINTMENT_TIME)
     var appointmentTime: Instant,
-    @ManyToMany(cascade = [CascadeType.ALL])
-    @JoinTable(
-        name = AppointmentUserEntity.TABLE_USER_ADDRESS,
-        joinColumns = [JoinColumn(name = "appointment_id")],
-        inverseJoinColumns = [JoinColumn(name = "user_id")],
-    )
-    var participants: Set<UserEntity> = mutableSetOf(),
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "appointment", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var participants: Set<AppointmentUserEntity> = mutableSetOf(),
     @Column(name = COLUMN_DELETED)
     var deleted: Boolean
 ) : AuditableBase() {

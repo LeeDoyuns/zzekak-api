@@ -5,6 +5,8 @@ import com.zzekak.domain.address.model.AppointmentAddress
 import com.zzekak.domain.address.model.AppointmentAddressId
 import com.zzekak.domain.appointment.dao.AppointmentEntityDao
 import com.zzekak.domain.appointment.entity.AppointmentEntity
+import com.zzekak.domain.appointment.entity.AppointmentUserEntity
+import com.zzekak.domain.appointment.entity.AppointmentUserId
 import com.zzekak.domain.appointment.model.Appointment
 import com.zzekak.domain.appointment.model.AppointmentCommand
 import com.zzekak.domain.appointment.model.AppointmentId
@@ -33,26 +35,26 @@ internal class AppointmentRepositoryImpl(
         returnType: KClass<out T>
     ): T {
         val existed = dao.findById(appointmentCommand.id)
-        val existedUsers = userDao.findAllByIds(appointmentCommand.participants)
+        val existedUsers = userDao.findAllByIds(appointmentCommand.participants.map { it.userId })
         val saved =
             dao.save(
                 appointmentCommand.toEntity(
                     existed = existed,
-                    participants = existedUsers,
+                    participantUserEntities = existedUsers,
                 ),
             )
 
         // 약속 생성 시 자동으로 미션테이블 insert
-        saved.participants.forEach { ptcp: UserEntity ->
+        saved.participants.forEach { ptcp: AppointmentUserEntity ->
             val apntMisn =
                 AppointmentMissionCommand(
                     appointmentId = AppointmentId(saved.appointmentId),
-                    userId = UserId(ptcp.userId),
+                    userId = UserId(ptcp.user.userId),
                     missionStepOneCompleteAt = null,
                     missionStepTwoCompleteAt = null,
                 ).toMissionEntity(
                     appointment = saved,
-                    participants = ptcp,
+                    participants = ptcp.user,
                     missionStepOneComplateAt = null,
                     missionStepTwoCompleteAt = null,
                 )
@@ -75,23 +77,38 @@ internal class AppointmentRepositoryImpl(
 
     private fun AppointmentCommand.toEntity(
         existed: AppointmentEntity?,
-        participants: Collection<UserEntity>
+        participantUserEntities: Collection<UserEntity>
     ) = existed?.apply {
         this.ownerId = this@toEntity.ownerId.value
         this.name = this@toEntity.name
-        this.appointmentAddress = address.toEntity(existed.appointmentAddress)
+        this.appointmentAddress = destinationAddress.toEntity(existed.appointmentAddress)
         this.appointmentTime = this@toEntity.appointmentTime
-        this.participants = participants.toMutableSet()
+        this.participants = this@toEntity.toAppointmentUserEntity(this, participantUserEntities)
         this.deleted = this@toEntity.deleted
     } ?: AppointmentEntity(
         appointmentId = id.value,
         ownerId = ownerId.value,
         name = name,
-        appointmentAddress = address.toEntity(null),
+        appointmentAddress = destinationAddress.toEntity(null),
         appointmentTime = appointmentTime,
-        participants = participants.toSet(),
+        participants = mutableSetOf(),
         deleted = deleted,
-    )
+    ).apply { this.participants = this@toEntity.toAppointmentUserEntity(this, participantUserEntities) }
+
+    private fun AppointmentCommand.toAppointmentUserEntity(
+        existed: AppointmentEntity,
+        participants: Collection<UserEntity>
+    ): Set<AppointmentUserEntity> =
+        with(this.participants.associate { it.userId.value to it.departureAddress }) {
+            participants.mapNotNull {
+                AppointmentUserEntity(
+                    id = AppointmentUserId(appointmentId = existed.appointmentId, userId = it.userId),
+                    appointment = existed,
+                    user = it,
+                    departureAddress = this[it.userId]?.toEntity(null) ?: return@mapNotNull null,
+                )
+            }.toSet()
+        }
 
     private fun AppointmentMissionCommand.toMissionEntity(
         appointment: AppointmentEntity,
@@ -132,9 +149,19 @@ internal class AppointmentRepositoryImpl(
                     id = AppointmentId(appointmentId),
                     ownerId = UserId(ownerId),
                     name = name,
-                    address = appointmentAddress.toDomain(),
+                    destinationAddress = appointmentAddress.toDomain(),
                     appointmentTime = appointmentTime,
-                    participants = participants.map { UserId(it.userId) },
+                    participants =
+                        participants.map {
+                            AppointmentCommand.Participant(
+                                userId = UserId(it.user.userId),
+                                departureAddress =
+                                    AppointmentAddress(
+                                        id = AppointmentAddressId(it.departureAddress.id),
+                                        address = it.departureAddress.toDomain().address,
+                                    ),
+                            )
+                        }.toSet(),
                     deleted = deleted,
                 ) as T
 
@@ -143,9 +170,9 @@ internal class AppointmentRepositoryImpl(
                     id = AppointmentId(appointmentId),
                     ownerId = UserId(ownerId),
                     name = name,
-                    address = appointmentAddress.toDomain(),
+                    destinationAddress = appointmentAddress.toDomain(),
                     appointmentTime = appointmentTime,
-                    participants = participants.map { UserId(it.userId) },
+                    participants = participants.map { UserId(it.user.userId) },
                     createdAt = createdAt,
                     updatedAt = updatedAt,
                     deleted = deleted,

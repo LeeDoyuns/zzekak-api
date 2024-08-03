@@ -27,7 +27,7 @@ class AppointmentAddressEntity(
     @Column(name = COORDINATE_X)
     val x: String,
     @Column(name = COORDINATE_Y)
-    val y: String
+    val y: String,
 ) {
     companion object {
         const val TABLE_ADDRESS = "appointment_address"

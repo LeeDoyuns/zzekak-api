@@ -19,12 +19,29 @@ data class AppointmentCommand(
     val id: AppointmentId,
     val ownerId: UserId,
     val name: String,
-    val address: AppointmentAddress,
+    val destinationAddress: AppointmentAddress,
     val appointmentTime: Instant,
-    val participants: List<UserId>,
+    val participants: Set<Participant>,
     val deleted: Boolean
 ) : Appointment {
-    fun join(userId: UserId): AppointmentCommand = this.copy(participants = participants + userId)
+    fun join(newParticipants: Collection<Participant>): AppointmentCommand =
+        this.copy(participants = (participants + newParticipants).toSet())
+
+    data class Participant(val userId: UserId, val departureAddress: AppointmentAddress) {
+        /**
+         * 유저가 마지막 입력한 정보를 최신 정보로 간주한다.
+         */
+        override fun hashCode(): Int {
+            val hashedUserId = userId.hashCode()
+            return hashedUserId
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (other !is Participant) return false
+            return userId == other.userId
+        }
+    }
 }
 
 /**
@@ -36,7 +53,7 @@ data class AppointmentQuery(
     val id: AppointmentId,
     val ownerId: UserId,
     val name: String,
-    val address: AppointmentAddress,
+    val destinationAddress: AppointmentAddress,
     val appointmentTime: Instant,
     val participants: List<UserId>,
     val createdAt: Instant,

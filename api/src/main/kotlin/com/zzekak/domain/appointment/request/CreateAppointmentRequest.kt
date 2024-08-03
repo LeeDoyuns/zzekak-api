@@ -6,7 +6,12 @@ import java.util.UUID
 
 internal data class CreateAppointmentRequest(
     val name: String = "",
-    val address: AddressRequest,
+    val destinationAddress: AddressRequest,
     val appointmentTime: ZonedDateTime,
-    val participants: List<UUID>
-)
+    val participants: List<ParticipantContent>
+) {
+    data class ParticipantContent(
+        val userId: UUID,
+        val departureAddress: AddressRequest
+    )
+}

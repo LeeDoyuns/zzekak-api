@@ -6,7 +6,9 @@ package com.zzekak.domain.appointment
 
 import com.zzekak.ApiUrl
 import com.zzekak.PathVariable.APPOINTMENT
+import com.zzekak.domain.appointment.model.AppointmentCommand
 import com.zzekak.domain.appointment.model.AppointmentId
+import com.zzekak.domain.appointment.request.JoinAppointmentRequest
 import com.zzekak.domain.appointment.response.FindAppointmentContent
 import com.zzekak.domain.appointment.usecase.JoinAppointmentUseCase
 import com.zzekak.domain.user.UserId
@@ -23,7 +25,8 @@ internal interface JoinAppointmentController {
     @PutMapping(ApiUrl.JOIN_APPOINTMENT)
     fun join(
         @AuthenticationPrincipal userId: UUID,
-        @PathVariable(APPOINTMENT) appointmentId: UUID
+        @PathVariable(APPOINTMENT) appointmentId: UUID,
+        joinAppointmentRequest: JoinAppointmentRequest
     ): FindAppointmentContent
 }
 
@@ -33,8 +36,15 @@ internal class JoinAppointmentControllerImpl(
 ) : JoinAppointmentController {
     override fun join(
         @AuthenticationPrincipal userId: UUID,
-        @PathVariable(APPOINTMENT) appointmentId: UUID
+        @PathVariable(APPOINTMENT) appointmentId: UUID,
+        joinAppointmentRequest: JoinAppointmentRequest
     ): FindAppointmentContent =
-        joinAppointmentUseCase.join(UserId(userId), AppointmentId(appointmentId))
-            .run { FindAppointmentContent.from(this) }
+        joinAppointmentUseCase.join(
+            appointmentId = AppointmentId(appointmentId),
+            participantInfo =
+                AppointmentCommand.Participant(
+                    userId = UserId(userId),
+                    departureAddress = joinAppointmentRequest.appointDepartureAddress.toDomain(),
+                ),
+        ).run { FindAppointmentContent.from(this) }
 }

@@ -22,7 +22,7 @@ internal data class CreateAppointmentResponse(
                     id = id,
                     ownerId = ownerId,
                     appointmentName = name,
-                    address = AddressResponse.from(address),
+                    address = AddressResponse.from(destinationAddress),
                     appointmentTime = appointmentTime,
                     createdAt = createdAt,
                     updatedAt = updatedAt,

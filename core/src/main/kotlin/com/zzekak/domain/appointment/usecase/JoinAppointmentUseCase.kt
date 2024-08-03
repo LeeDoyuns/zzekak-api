@@ -8,7 +8,6 @@ import com.zzekak.domain.appointment.model.AppointmentCommand
 import com.zzekak.domain.appointment.model.AppointmentId
 import com.zzekak.domain.appointment.model.AppointmentQuery
 import com.zzekak.domain.appointment.repository.AppointmentRepository
-import com.zzekak.domain.user.UserId
 import org.springframework.stereotype.Service
 
 /**
@@ -19,13 +18,13 @@ class JoinAppointmentUseCase(
     private val appointmentRepository: AppointmentRepository
 ) {
     fun join(
-        userId: UserId,
-        appointmentId: AppointmentId
+        appointmentId: AppointmentId,
+        participantInfo: AppointmentCommand.Participant
     ): AppointmentQuery {
         val found =
             appointmentRepository.findBy(appointmentId, AppointmentCommand::class)
                 ?: throw IllegalArgumentException("Appointment not found")
 
-        return appointmentRepository.save(found.join(userId), AppointmentQuery::class)
+        return appointmentRepository.save(found.join(setOf(participantInfo)), AppointmentQuery::class)
     }
 }

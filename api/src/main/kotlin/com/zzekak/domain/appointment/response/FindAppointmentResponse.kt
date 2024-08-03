@@ -29,7 +29,7 @@ internal data class FindAppointmentContent(
             FindAppointmentContent(
                 id = src.id,
                 appointmentName = src.name,
-                address = AddressResponse.from(src.address),
+                address = AddressResponse.from(src.destinationAddress),
                 appointmentTime = src.appointmentTime,
                 participants = src.participants,
             )

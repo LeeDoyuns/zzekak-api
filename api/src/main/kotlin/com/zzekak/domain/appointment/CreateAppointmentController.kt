@@ -1,8 +1,6 @@
 package com.zzekak.domain.appointment
 
 import com.zzekak.ApiUrl
-import com.zzekak.domain.address.model.AppointmentAddress
-import com.zzekak.domain.address.model.AppointmentAddressId
 import com.zzekak.domain.appointment.model.AppointmentCommand
 import com.zzekak.domain.appointment.model.AppointmentId
 import com.zzekak.domain.appointment.request.CreateAppointmentRequest
@@ -44,21 +42,12 @@ internal class CreateAppointmentControllerImpl(
                         id = AppointmentId(UUID.randomUUID()),
                         ownerId = UserId(userId),
                         name = request.name,
-                        address =
-                            AppointmentAddress.create(
-                                id = AppointmentAddressId(UUID.randomUUID()),
-                                cityOrProvince = address.cityOrProvince,
-                                districtOrCity = address.districtOrCity,
-                                postalCode = address.postalCode,
-                                roadAddress = address.roadAddress,
-                                x = address.x,
-                                y = address.y,
-                                undergroundYn = address.undergroundYn,
-                                buildingName = address.buildingName,
-                                jibunAddress = address.jibunAddress,
-                            ),
+                        destinationAddress = destinationAddress.toDomain(),
                         appointmentTime = appointmentTime.toInstant(),
-                        participants = participants.map { UserId(it) },
+                        participants =
+                            participants.map {
+                                AppointmentCommand.Participant(UserId(it.userId), it.departureAddress.toDomain())
+                            }.toSet(),
                         deleted = false,
                     )
                 },
