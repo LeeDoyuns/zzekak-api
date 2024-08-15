@@ -10,5 +10,5 @@ class FindAppointmentUseCase(
     val appointmentRepository: AppointmentRepository
 ) {
     fun findAll(userId: UserId): List<AppointmentQuery> =
-        appointmentRepository.findAllByUserId(userId, AppointmentQuery::class)
+        appointmentRepository.findAllByParticipantId(userId, AppointmentQuery::class)
 }

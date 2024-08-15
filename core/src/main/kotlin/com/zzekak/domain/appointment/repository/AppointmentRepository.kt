@@ -16,7 +16,7 @@ interface AppointmentRepository {
         returnType: KClass<out T>
     ): T
 
-    fun <T : Appointment> findAllByUserId(
+    fun <T : Appointment> findAllByParticipantId(
         userId: UserId,
         returnType: KClass<out T>
     ): List<T>

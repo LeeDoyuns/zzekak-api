@@ -153,10 +153,10 @@ internal class AppointmentRepositoryImpl(
     }
 
     @Transactional
-    override fun <T : Appointment> findAllByUserId(
+    override fun <T : Appointment> findAllByParticipantId(
         userId: UserId,
         returnType: KClass<out T>
-    ): List<T> = dao.findByUserId(userId).map { it.toDomain(returnType) }
+    ): List<T> = dao.findAllByParticipantId(userId).map { it.toDomain(returnType) }
 
     @Transactional
     override fun <T : Appointment> findBy(

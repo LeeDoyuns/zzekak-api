@@ -13,13 +13,18 @@ interface AppointmentEntityDao {
     fun findById(id: AppointmentId): AppointmentEntity?
 
     fun findByUserId(userId: UserId): List<AppointmentEntity>
+
+    fun findAllByParticipantId(userId: UserId): List<AppointmentEntity>
 }
 
+@Suppress("FunctionName")
 @Repository
 interface AppointmentEntityJpaRepository : JpaRepository<AppointmentEntity, UUID> {
     fun findByAppointmentId(id: UUID): AppointmentEntity?
 
     fun findAllByOwnerId(userId: UUID): List<AppointmentEntity>
+
+    fun findAllByParticipants_User_UserId(userId: UUID): List<AppointmentEntity>
 }
 
 @Repository
@@ -31,4 +36,7 @@ class AppointmentDaoImpl(
     override fun findById(id: AppointmentId): AppointmentEntity? = delegate.findByAppointmentId(id.value)
 
     override fun findByUserId(userId: UserId): List<AppointmentEntity> = delegate.findAllByOwnerId(userId.value)
+
+    override fun findAllByParticipantId(userId: UserId): List<AppointmentEntity> =
+        delegate.findAllByParticipants_User_UserId(userId.value)
 }
