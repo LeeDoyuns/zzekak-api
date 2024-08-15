@@ -172,7 +172,7 @@ internal class AppointmentRepositoryImpl(
         this.name = this@toEntity.name
         this.appointmentAddress = destinationAddress.toEntity(existed.appointmentAddress)
         this.appointmentTime = this@toEntity.appointmentTime
-        this.participants = this@toEntity.toAppointmentUserEntity(this, participantUserEntities)
+        this.participants.addAll(this@toEntity.toAppointmentUserEntity(this, participantUserEntities))
         this.deleted = this@toEntity.deleted
     } ?: AppointmentEntity(
         appointmentId = id.value,
@@ -187,7 +187,7 @@ internal class AppointmentRepositoryImpl(
     private fun AppointmentCommand.toAppointmentUserEntity(
         existed: AppointmentEntity,
         participants: Collection<UserEntity>
-    ): Set<AppointmentUserEntity> =
+    ): MutableSet<AppointmentUserEntity> =
         with(this.participants.associate { it.userId.value to it.departureAddress }) {
             participants.mapNotNull {
                 AppointmentUserEntity(
@@ -196,8 +196,8 @@ internal class AppointmentRepositoryImpl(
                     user = it,
                     departureAddress = this[it.userId]?.toEntity(null) ?: return@mapNotNull null,
                 )
-            }.toSet()
-        }
+            }
+        }.toMutableSet()
 
     private fun AppointmentMissionCommand.toApntMisnEntity(
         appointment: AppointmentEntity,

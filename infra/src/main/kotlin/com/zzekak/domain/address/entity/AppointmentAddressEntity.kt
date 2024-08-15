@@ -1,6 +1,7 @@
 package com.zzekak.domain.address.entity
 
 import com.zzekak.domain.address.entity.AppointmentAddressEntity.Companion.TABLE_ADDRESS
+import com.zzekak.domain.common.entity.AuditableBase
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -28,7 +29,7 @@ class AppointmentAddressEntity(
     val x: String,
     @Column(name = COORDINATE_Y)
     val y: String,
-) {
+) : AuditableBase() {
     companion object {
         const val TABLE_ADDRESS = "appointment_address"
         const val APPOINTMENT_ADDRESS_ID = "appointment_address_id"
@@ -39,7 +40,5 @@ class AppointmentAddressEntity(
         const val ROAD_ADDRESS = "road_address"
         const val COORDINATE_X = "x"
         const val COORDINATE_Y = "y"
-        const val COLUMN_CREATED_AT = "created_at"
-        const val COLUMN_UPDATED_AT = "updated_at"
     }
 }

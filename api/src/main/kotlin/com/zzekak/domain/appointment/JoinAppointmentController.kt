@@ -15,6 +15,7 @@ import com.zzekak.domain.user.UserId
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 
@@ -26,7 +27,7 @@ internal interface JoinAppointmentController {
     fun join(
         @AuthenticationPrincipal userId: UUID,
         @PathVariable(APPOINTMENT) appointmentId: UUID,
-        joinAppointmentRequest: JoinAppointmentRequest
+        @RequestBody joinAppointmentRequest: JoinAppointmentRequest
     ): FindAppointmentContent
 }
 

@@ -63,18 +63,18 @@ internal class ConnectionModule(val confmKey: String) {
         endLocY: String,
         appointmentTime: ZonedDateTime
     ): SearchedPathResponse {
-        var startCoordinate: String = "$strtLocY,$strtLocX"
-        var destinationCoordinate: String = "$endLocY,$endLocX"
-        var arrivalTime: String = "${appointmentTime.toInstant().epochSecond}"
+        val startCoordinate: String = "$strtLocY,$strtLocX"
+        val destinationCoordinate: String = "$endLocY,$endLocX"
+        val arrivalTime: String = "${appointmentTime.toInstant().epochSecond}"
 
-        var req: JsonObject =
+        val req: JsonObject =
             PathFindRequest(
                 startCoordinate,
                 destinationCoordinate,
                 confmKey,
                 arrivalTime,
             ).returnToJSON()
-        var response = connectionFindPath(pathFindUrl, req)
+        val response = connectionFindPath(pathFindUrl, req)
         val pf = PathFindResponse.to(response)
 
         val result =

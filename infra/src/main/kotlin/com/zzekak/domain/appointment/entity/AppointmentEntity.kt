@@ -30,7 +30,7 @@ class AppointmentEntity(
     @Column(name = COLUMN_APPOINTMENT_TIME)
     var appointmentTime: Instant,
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "appointment", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var participants: Set<AppointmentUserEntity> = mutableSetOf(),
+    var participants: MutableSet<AppointmentUserEntity> = mutableSetOf(),
     @Column(name = COLUMN_DELETED)
     var deleted: Boolean
 ) : AuditableBase() {
